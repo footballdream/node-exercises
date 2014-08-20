@@ -1,0 +1,9 @@
+{
+  "name": "hello-express",
+  "description": "this is a startup express project",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "4.8.5",
+    "morgan": "1.2.3"
+  }
+}
