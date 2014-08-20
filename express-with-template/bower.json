@@ -1,0 +1,21 @@
+{
+  "name": "express-with-template",
+  "version": "0.0.1",
+  "homepage": "https://github.com/0000-bigtree/node-exercises",
+  "authors": [
+    "0000-bigtree <0000.bigtree@gmail.com>"
+  ],
+  "description": "express-with-tmplate",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1"
+  }
+}
