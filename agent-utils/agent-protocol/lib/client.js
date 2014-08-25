@@ -13,14 +13,15 @@ var dgram = require('dgram');
 var server = dgram.createSocket('udp4');
 server.on('listening', function () {
   var address = server.address();
-  logger.info('agent client listening on ' + address.address + ":" + address.port);  
+  logger.info('agent client started, listening on ' + address.address + ":" + address.port);  
 });
 
 server.on('message', function (message, remote) {
   var logger = log4js.getLogger('receiver');
+  command = commands.parse(message, 0);
+  str = 'command=\n'+ util.inspect(command, false, null);
   logger.debug('received data, peer=' + remote.address + ':' + remote.port 
-      + ', length=' + message.length + ', content=\n' + hexy.hexy(message));
-  logger.debug('parsed message, command=\n'+ util.inspect(commands.parse(message, 0), false, null));
+      + ', length=' + message.length + ', bytes=\n' + hexy.hexy(message) + str);
 });
 
 server.bind(PORT, HOST);

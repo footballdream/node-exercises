@@ -1,9 +1,9 @@
 {
   "name": "agent-protocol",
-  "description": "Agent protocol implementation for Genew devices",
+  "description": "Agent protocol implementation for Xxx devices",
   "author": {
-    "name": "XXZ",
-    "email": "xxz@genew.cn",
+    "name": "bigtree",
+    "email": "xxz@xxx.cn",
     "url": ""
   },
   "keywords": [
@@ -31,12 +31,12 @@
   },
   "bugs": {
     "url": "",
-    "email": "xxz@genew.cn"
+    "email": "xxz@xxx.cn"
   },
   "maintainers": [
     {
       "name": "xxz",
-      "email": "xxz@genew.cn"
+      "email": "xxz@xxx.cn"
     }
   ]
 }

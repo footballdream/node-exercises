@@ -3,8 +3,28 @@
 var ies = require('./ies');
 var ineternal = require('./inernalUtils');
 
+exports.Command = function Command(doInit) {
+  this.headers = {};
+  this.ies = [];
+  if (doInit) {
+    
+  }
+}
+
+exports.registerCommand = function(command){
+     
+}
+
+exports.createCommand = function(id, serial, mac, ies) {
+    // 设备注册
+    
+    // 响应设备注册
+    var command = new exports.Command(true);
+    
+}
+
 exports.parse = function(buffer, offset) {
-  var command = {headers: {}, ies: []};
+  var command = new exports.Command();
   var pos = exports.parseHead(buffer, offset, command);
   if (pos < buffer.length) {
     exports.parseIe(buffer, pos, command);
