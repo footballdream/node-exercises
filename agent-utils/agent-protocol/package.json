@@ -1,0 +1,42 @@
+{
+  "name": "agent-protocol",
+  "description": "Agent protocol implementation for Genew devices",
+  "author": {
+    "name": "XXZ",
+    "email": "xxz@genew.cn",
+    "url": ""
+  },
+  "keywords": [
+    "agent",
+    "protocol"
+  ],
+  "homepage": "",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "dependencies": {
+    "log4js": "~0.6.18",
+    "hexy": "~0.2.6",
+    "coffee-script": "~1.7.1"    
+  },
+  "__devDependencies": {
+    "docco": "~0.6.2",
+    "jscoverage": "~0.3.6",
+    "jshint": "~1.1.0",
+    "mocha": "~1.9.0",
+    "should": "~1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": "",
+    "email": "xxz@genew.cn"
+  },
+  "maintainers": [
+    {
+      "name": "xxz",
+      "email": "xxz@genew.cn"
+    }
+  ]
+}
