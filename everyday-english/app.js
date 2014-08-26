@@ -1,3 +1,6 @@
+var log4js = require('log4js');
+log4js.configure('log4js.json', {});
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -16,7 +19,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
-app.use(logger('dev'));
+var logger = log4js.getLogger('http');
+// app.use(logger('dev'));
+app.use(log4js.connectLogger(logger, {level:log4js.levels.DEBUG}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
