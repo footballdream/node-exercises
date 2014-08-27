@@ -12,7 +12,7 @@ var db = require('./models')
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var sentences = require('./routes/sentences');
-var api = require('./routes/api');
+
 
 
 var app = express();
@@ -36,7 +36,9 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/sentences', sentences);
-app.use('/api', api);
+// apis 
+var apis = require('./routes/apis');
+app.use('/api', apis);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
