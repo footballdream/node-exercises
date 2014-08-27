@@ -6,8 +6,10 @@ router.use(function(req, res, next) {
   return next();
 });
 
-var ver = '1.0.0';
+var defaultVer = '1.0.0';
+var defaultShortVer = 'v1';
 var sentences = require('./sentences');
-router.use('/' + ver + '/sentences', sentences);
+router.use('/' + defaultVer + '/sentences', sentences);
+router.use('/' + defaultShortVer + '/sentences', sentences);
 
 module.exports = router;
