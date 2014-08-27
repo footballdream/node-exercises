@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www"
+    "start": "supervisor ./bin/www",
+    "stop": "duo index.css > app/css/build.css"
   },
   "dependencies": {
     "express": "~4.2.0",
