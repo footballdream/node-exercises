@@ -2,7 +2,7 @@ var superagent = require('superagent')
 var expect = require('expect.js')
 
 describe('express rest api server', function(){
-  var id
+  var id;
   var english = 'new English part of the sentence';
   var chinese = '句子新的中文部分';
     
