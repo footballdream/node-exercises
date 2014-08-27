@@ -67,7 +67,7 @@ describe('express rest api server', function(){
   it('removes(delete) an object', function(done){
     superagent.del('http://localhost:3000/api/v1/sentences/' + id)
       .end(function(e, res){
-        console.log(res.body)
+        // console.log(res.body)
         expect(e).to.eql(null)
         expect(typeof res.body).to.eql('object')
         expect(res.body.message).to.eql('success');        

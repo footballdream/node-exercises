@@ -13,8 +13,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var sentences = require('./routes/sentences');
 
-
-
 var app = express();
 
 // view engine setup
@@ -72,8 +70,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-db
-  .sequelize
+db.sequelize
   .sync({ force: false })
   .complete(function(err) {
     if (err) {
