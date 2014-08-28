@@ -34,16 +34,23 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
   *                                                                          *
-  *  If a request to a URL doesn't match any of the custom routes above, it  *
+  * If a request to a URL doesn't match any of the custom routes above, it  *
   * is matched against Sails route blueprints. See `config/blueprints.js`    *
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
 
+  'GET /sentence': {controller: "SentenceGuiController", action: "index" },
+  'GET /sentence/new': {controller: "SentenceGuiController", action: "new" },
+  'POST /sentence/create': {controller: "SentenceGuiController", action: "create" },
+  'GET /sentence/show/:id': {controller: "SentenceGuiController", action: "show" }, 
+  'GET /sentence/edit/:id': {controller: "SentenceGuiController", action: "edit" }, 
+  'POST /sentence/update/:id': {controller: "SentenceGuiController", action: "update" }, 
+  'GET /sentence/destroy/:id': {controller: "SentenceGuiController", action: "destroy" }  
 };
