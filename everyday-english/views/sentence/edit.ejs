@@ -1,0 +1,9 @@
+<h1> Editing Sentence </h1>
+<form action="/sentence/update/<%= sentence.id %>" method="POST">
+  <div>English: <input value="<%= sentence.english %>" name="english" type="text"/></div>
+  <div>Chinese: <input value="<%= sentence.chinese %>" name="chinese" type="text"/></div>
+  <input type="submit"/>
+</form>
+
+<a href="/sentence/edit/<%= sentence.id %>">Edit</a> | 
+<a href="/sentence">Back</a>

@@ -1,0 +1,34 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<!--
+	<% for(user in model) { %>
+	<tr>
+	  <td><%= model[user].english %></td>
+	  <td><%= model[user].chinese %></td>
+    <td><a href="/sentence/show/<%= model[user].id %>">Show</a></td>
+    <td><a href="/sentence/edit/<%= model[user].id %>">Edit</a></td>
+	<% } %>
+	</tr>
+-->
+
+  <% _.each(model, function (user) { %>
+  <tr>
+    <td><%= user.english %></td>
+    <td><%= user.chinese %></td>
+    <td><a href="/sentence/show/<%= user.id %>">Show</a></td>
+    <td><a href="/sentence/edit/<%= user.id %>">Edit</a></td>
+     <td><a href="/sentence/destroy/<%= user.id %>">Delete</a></td>
+  <% }) %>
+  </tr>
+</table>
+<br />
+
+<a href="/sentence/new">New Sentence</a>

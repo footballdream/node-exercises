@@ -24,6 +24,12 @@
     "sails-disk": "~0.10.0",
     "sails-mysql": "^0.10.6"
   },
+  "devDependencies": {
+    "supervisor": "~0.6.0",
+    "superagent": "~0.18.2",
+    "expect.js": "~0.3.1",
+    "mocha": "~1.21.4"
+  },  
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js"
