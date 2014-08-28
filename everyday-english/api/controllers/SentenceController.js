@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-  
+
+  /*
   index: function (req, res) {
     Sentence.find(function(err, sentences){
       if (err) return res.send(err, 500);
@@ -84,9 +85,9 @@ module.exports = {
 			});			
 		})
 	},
-	
+	*/
     // a CREATE action  
-    createx: function(req, res, next) {
+    create: function(req, res, next) {
         var params = req.params.all();
         Sentence.create(params, function(err, sentence) {
             if (err) return next(err);
@@ -134,7 +135,7 @@ module.exports = {
     },
 
     // an UPDATE action
-    updatex: function(req, res, next) {
+    update: function(req, res, next) {
         var criteria = {};
         criteria = _.merge({}, req.params.all(), req.body);
         var id = req.param('id');
@@ -149,7 +150,7 @@ module.exports = {
     },
 
     // a DESTROY action
-    destroyx: function(req, res, next) {
+    destroy: function(req, res, next) {
         var id = req.param('id');
         if (!id) {
             return res.badRequest('No id provided.');
