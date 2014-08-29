@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><strong>句子</strong></div>
+  <div class="panel-body">
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default" ng-click="refresh()">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-click="showNew()">
+          <i class="fa fa-plus"></i> 新建
+        </button>
+        <button type="button" class="btn btn-primary">
+          <i class="fa fa-pencil"></i> 修改
+        </button>
+        <button type="button" class="btn btn-primary">
+          <i class="fa fa-minus"></i> 删除
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+      <tr>
+        <td colspan="7">
+          <div style="margin-top: 8px" class="pull-left">{{ pagesInfo }}</div>
+          <div class="pull-right">
+            <ul style="margin: 0 0 0 0" class="pagination">
+              <li ng-class="{ disabled: 1 == pagesCurrent }"><a href="" ng-click="previousPage()">&larr;上一页</a></li>
+              <li ng-class="{ active: n == pagesCurrent }" ng-repeat="n in showingPages()">
+                <a href="" ng-click="setPage()" ng-bind="n">1</a>
+              </li>
+              <li ng-class="{ disabled: pagesTotalPages == pagesCurrent }">
+                <a href="" ng-click="nextPage()">&rarr;下一页</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 48px">序号</th>
+        <th style="width: 60px">
+          <a href="" ng-click="sort('id')">
+            ID <span ng-show="sortField == 'id'">
+            <span ng-show="!sortReverse"><i class="fa fa-sort-asc"></i></span>
+            <span ng-show="sortReverse"><i class="fa fa-sort-desc"></i></span>
+          </span>
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('english')">
+            英文 <span ng-show="sortField == 'english'">
+            <span ng-show="!sortReverse"><i class="fa fa-sort-asc"></i></span>
+            <span ng-show="sortReverse"><i class="fa fa-sort-desc"></i></span>
+          </span>
+          </a>
+        </th>
+        <th>
+          <a href="" ng-click="sort('chinese')">
+            中文 <span ng-show="sortField == 'chinese'">
+            <span ng-show="!sortReverse"><i class="fa fa-sort-asc"></i></span>
+            <span ng-show="sortReverse"><i class="fa fa-sort-desc"></i></span>
+          </span>
+          </a>
+        </th>
+        <th colspan="2"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr style="text-align: center" ng-repeat='e in sentences'>
+        <td>{{$index + 1}}</td>
+        <td>{{e.id}}</td>
+        <td style="text-align: left">{{e.english}}</td>
+        <td style="text-align: left">{{e.chinese}}</td>
+        <td style="width: 48px"><a href="" ng-click="showDelete(e.id)"><i class="fa fa-minus"></i></a></td>
+        <td style="width: 48px"><a href="" ng-click="showUpdate(e.id)"><i class="fa fa-pencil"></i></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

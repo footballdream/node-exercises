@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><strong>句子 - {{manipulationName}}</strong></div>
+  <div class="panel-body">
+    <form class="form-horizontal css-form" role="form" name="form" ng-submit="save()">
+      <div class="form-group">
+        <label for="english" class="col-sm-2 control-label">英文：</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="2" name="english" ng-maxlength="120" ng-model="sentence.english" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="chinese" class="col-sm-2 control-label">中文：</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="2" name="chinese" ng-maxlength="120" ng-model="sentence.chinese" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="desc" class="col-sm-2 control-label">描述：</label>
+
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="4" name="desc" ng-model="sentence.desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 pull-right">
+          <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+            <span>确定</span>
+          </button>
+          <a href="" ng-click="cancel()" class="btn btn-default">
+            <span>取消</span>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

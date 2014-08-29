@@ -52,5 +52,15 @@ module.exports.routes = {
   'GET /sentence/show/:id': {controller: "SentenceGuiController", action: "show" },
   'GET /sentence/edit/:id': {controller: "SentenceGuiController", action: "edit" },
   'POST /sentence/update/:id': {controller: "SentenceGuiController", action: "update" },
-  'GET /sentence/destroy/:id': {controller: "SentenceGuiController", action: "destroy" }
+  'GET /sentence/destroy/:id': {controller: "SentenceGuiController", action: "destroy" },
+
+
+
+  'GET /app/partials/sentences/home': {controller: "SentenceSpaController", action: "home" },
+  'GET /app/partials/sentences/form': {controller: "SentenceSpaController", action: "form" },
+
+  'GET /app/partials/signin/home': {controller: "SigninSpaController", action: "home" },
+
+
+
 };

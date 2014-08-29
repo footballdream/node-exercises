@@ -11,12 +11,12 @@ var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap',
 ]);
 
 appModule.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/signin', { templateUrl: 'partials/signin/home.html', controller: 'SigninController' });
+    $routeProvider.when('/signin', { templateUrl: 'app/partials/signin/home', controller: 'SigninController' });
 
     // sentences table
-    $routeProvider.when('/sentences', { templateUrl: 'partials/sentences/home.html', controller: 'SentencesController' });
+    $routeProvider.when('/sentences', { templateUrl: 'app/partials/sentences/home', controller: 'SentencesController' });
     // new sentence
-    $routeProvider.when('/sentences/new', { templateUrl: 'partials/sentences/form.html', controller: 'SentencesNewController' });
+    $routeProvider.when('/sentences/new', { templateUrl: 'app/partials/sentences/form', controller: 'SentencesNewController' });
     // update sentence
     $routeProvider.when('/sentences/:id', { templateUrl: 'partials/sentences/form.html', controller: 'SentencesUpdateController' });
 
