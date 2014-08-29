@@ -1,0 +1,14 @@
+{
+  "appenders": [
+    { 
+      "type": "console"
+    },
+    {
+      "type": "dateFile",
+      "pattern": "yyyy-MM-dd-hh-mm-ss",        
+      "filename": "log/log.log", 
+      "alwaysIncludePattern": true
+    }
+  ],
+  "replaceConsole": true
+}
