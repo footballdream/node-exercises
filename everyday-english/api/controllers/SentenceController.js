@@ -6,8 +6,8 @@
  */
 
 module.exports = {
-  
-    // a CREATE action  
+/*
+    // a CREATE action
     create: function(req, res, next) {
         var params = req.params.all();
         Sentence.create(params, function(err, sentence) {
@@ -85,7 +85,7 @@ module.exports = {
             });
         });
     },
-
+*/
     /**
      * Overrides for the settings in `config/controllers.js`
      * (specific to SleepController)
