@@ -18,7 +18,7 @@ appModule.config(['$routeProvider', function ($routeProvider) {
     // new sentence
     $routeProvider.when('/sentences/new', { templateUrl: 'app/partials/sentences/form', controller: 'SentencesNewController' });
     // update sentence
-    $routeProvider.when('/sentences/:id', { templateUrl: 'partials/sentences/form.html', controller: 'SentencesUpdateController' });
+    $routeProvider.when('/sentences/:id', { templateUrl: 'app/partials/sentences/form', controller: 'SentencesUpdateController' });
 
     // category table
     $routeProvider.when('/categories', { templateUrl: 'partials/categories/home.html', controller: 'CategoriesController' });
