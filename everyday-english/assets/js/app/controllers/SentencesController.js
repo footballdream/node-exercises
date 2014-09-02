@@ -1,7 +1,7 @@
 'use strict';
 var module = angular.module('app.controllers');
 // sentence控制器
-module.controller('SentencesController', ['$scope', '$location', 'SentencesRest', 'MessageBoxService', function ($scope, $location, SentencesRest, MessageBoxService) {
+module.controller('SentencesController', ['$scope', '$location', 'Sentence', 'MessageBoxService', function ($scope, $location, Sentence, MessageBoxService) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -98,11 +98,11 @@ module.controller('SentencesController', ['$scope', '$location', 'SentencesRest'
 
     $scope.refresh()
     */
-    
-$scope.filteredSentences = []
-  ,$scope.currentPage = 1
-  ,$scope.numPerPage = 10
-  ,$scope.maxSize = 5;
+
+$scope.filteredSentences = [];
+$scope.currentPage = 1;
+$scope.numPerPage = 10;
+$scope.maxSize = 5;
 
   $scope.makeTodos = function() {
     $scope.sentences = [];
@@ -110,17 +110,18 @@ $scope.filteredSentences = []
       $scope.sentences.push({ english:'todo '+i, chinese:'false' + i});
     }
   };
-  $scope.makeTodos(); 
+  $scope.makeTodos();
 
   $scope.numPages = function () {
     return Math.ceil($scope.sentences.length / $scope.numPerPage);
   };
-  
+
   $scope.$watch('currentPage + numPerPage', function() {
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    , end = begin + $scope.numPerPage;    
-    $scope.filteredSentences = $scope.sentences.slice(begin, end);
-  });  
+    , end = begin + $scope.numPerPage;
+    // $scope.filteredSentences = $scope.sentences.slice(begin, end);
+    $scope.filteredSentences = Sentence.$search().$then(function(sentences) {      
+      $scope.filteredSentences = sentences;
+    })
+  });
 }]);
-
-
