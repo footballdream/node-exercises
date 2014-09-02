@@ -99,30 +99,28 @@ module.controller('SentencesController', ['$scope', '$location', 'SentencesRest'
     $scope.refresh()
     */
     
-$scope.filteredTodos = []
+$scope.filteredSentences = []
   ,$scope.currentPage = 1
   ,$scope.numPerPage = 10
   ,$scope.maxSize = 5;
 
   $scope.makeTodos = function() {
-    $scope.todos = [];
+    $scope.sentences = [];
     for (var i=1;i<=1000;i++) {
-      $scope.todos.push({ text:'todo '+i, done:false});
+      $scope.sentences.push({ english:'todo '+i, chinese:'false' + i});
     }
   };
   $scope.makeTodos(); 
 
   $scope.numPages = function () {
-    return Math.ceil($scope.todos.length / $scope.numPerPage);
+    return Math.ceil($scope.sentences.length / $scope.numPerPage);
   };
-
-  /*
+  
   $scope.$watch('currentPage + numPerPage', function() {
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    , end = begin + $scope.numPerPage;
-
-    $scope.filteredTodos = $scope.todos.slice(begin, end);
-  });*/    
+    , end = begin + $scope.numPerPage;    
+    $scope.filteredSentences = $scope.sentences.slice(begin, end);
+  });  
 }]);
 
 
