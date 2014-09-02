@@ -10,10 +10,9 @@ module.exports = {
     english: {
       type: 'string'
     },
-
-		chinese: {
-			type: 'string'
-		}
+    chinese: {
+      type: 'string'
+    }
   }
 };
 
