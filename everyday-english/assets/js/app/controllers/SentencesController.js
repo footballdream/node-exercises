@@ -99,30 +99,33 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence', 'Me
     $scope.refresh()
     */
 
-$scope.filteredSentences = [];
-$scope.currentPage = 1;
-$scope.numPerPage = 10;
-$scope.maxSize = 5;
+    $scope.filteredSentences = [];
+    $scope.pageMaxShowing = 5;
+    $scope.pagePerPage = 10;
+    $scope.pagePage = 1;
+    $scope.pageTotal = 0;
+    $scope.pageTotalPages = 1;
 
-  $scope.makeTodos = function() {
-    $scope.sentences = [];
-    for (var i=1;i<=1000;i++) {
-      $scope.sentences.push({ english:'todo '+i, chinese:'false' + i});
-    }
-  };
-  $scope.makeTodos();
+    $scope.updatePageInfo = function() {
+      var minIndex = (0 != $scope.pageTotal)
+        ? Math.max(($scope.pagePerPage * ($scope.pagePage - 1)) + 1, 1)
+        : 0;
+      var maxIndex = Math.min($scope.pagePerPage * $scope.pagePage, $scope
+        .pageTotal)
+      $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
 
-  $scope.numPages = function () {
-    return Math.ceil($scope.sentences.length / $scope.numPerPage);
-  };
+    };
 
-  $scope.$watch('currentPage + numPerPage', function() {
-    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-    , end = begin + $scope.numPerPage;
-    // $scope.filteredSentences = $scope.sentences.slice(begin, end);
-    $scope.filteredSentences = Sentence.$search().$then(function(sentences) {  
-      console.log(sentences)
-      $scope.filteredSentences = sentences;
-    })
-  });
+    $scope.$watch('pagePage', function() {
+        var options = {
+          skip: (($scope.pagePage - 1) * $scope.pagePerPage),
+          limit: $scope.pagePerPage
+        };
+        Sentence.$search(options).$then(function(sentences) {
+          $scope.pageTotal = sentences.$pageTotal;
+          $scope.pageTotalPages = sentences.$pageTotalPages;
+          $scope.filteredSentences = sentences;
+          $scope.updatePageInfo();
+        })
+      });
 }]);

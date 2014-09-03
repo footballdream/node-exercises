@@ -44,21 +44,21 @@
 angular.module('restmod').factory('PagedModel', ['restmod', function(restmod) {
 
   return restmod.mixin({
-    '@$pageCurrentHeader': 'X-Page',
-    '@$pageTotalHeader': 'X-Total-Pages',
+    '@$pagePageHeader': 'X-Page',
+    '@$pageTotalPagesHeader': 'X-Total-Pages',
     '@$pagePerPageHeader': 'X-Per-Page',
-    '@$pageTotalItemsHeader': 'X-Total',
-    
-    '~afterFetchMany': function(_response) {
-      var current = _response.headers(this.$pageCurrentHeader);
-      var total = _response.headers(this.$pageTotalHeader);
-      var perPage = _response.headers(this.$pagePerPageHeader);
-      var totalItems = _response.headers(this.$pageTotalItemsHeader);
+    '@$pageTotalHeader': 'X-Total',
 
-      this.$pageCurrent = (current !== undefined ? parseInt(current, 10) : 1);
-      this.$pageTotal = (total !== undefined ? parseInt(total, 10) : 1);
+    '~afterFetchMany': function(_response) {
+      var page = _response.headers(this.$pagePageHeader);
+      var totalPages = _response.headers(this.$pageTotalPagesHeader);
+      var perPage = _response.headers(this.$pagePerPageHeader);
+      var total = _response.headers(this.$pageTotalHeader);
+
+      this.$page = (page !== undefined ? parseInt(page, 10) : 1);
+      this.$pageTotalPages = (totalPages !== undefined ? parseInt(totalPages, 10) : 1);
       this.$pagePerPage = (perPage !== undefined ? parseInt(perPage, 10) : 10);
-      this.$pageTotalItems = (totalItems !== undefined ? parseInt(totalItems, 10) : 0);
+      this.$pageTotal = (total !== undefined ? parseInt(total, 10) : 0);
     }
   });
 }]);})(angular);

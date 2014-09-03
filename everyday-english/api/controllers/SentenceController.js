@@ -7,6 +7,20 @@
 
 module.exports = {
 
+  // a FIND ONE action
+  findOne: function(req, res, next) {
+    var id = req.param('id');
+    Sentence.findOne(id, function(err, sentence) {
+      if (undefined === sentence) {
+        return res.notFound();
+      }
+      if (err) {
+        return next(err);
+      }
+      return res.json(sentence);
+    });
+  },
+
   // a FIND action
   find: function(req, res, next) {
     var id = req.param('id');
@@ -20,10 +34,11 @@ module.exports = {
         if (undefined === sentence) {
           return res.notFound();
         }
+        console.log(sentence);
         if (err) {
           return next(err);
         }
-        res.json(sentence);
+        return res.json([]);
       });
     } else {
       var options = getOptions(req);
@@ -54,7 +69,7 @@ module.exports = {
       var limit = parseInt(options['limit'], 10);
       var skip = parseInt(options['skip'], 10);
       // skip需要是limit的整数倍，否则计算当前页会出错，但该错不误产生较大影响，不处理
-      var page =  0 >= count ? 0 : (Math.ceil(skip / limit) + 1);
+      var page = 0 >= count ? 0 : (Math.ceil(skip / limit) + 1);
       res.set('X-Total-Pages', Math.ceil(count / limit));
       res.set('X-Total', count);
       res.set('X-Page', page);
@@ -76,12 +91,13 @@ module.exports = {
     }
 
     function isShortcut(id) {
-      if (id === 'find' || id === 'update' || id === 'create'
-        || id === 'destroy') {
+      if (id === 'find' || id === 'update' || id === 'create' || id ===
+        'destroy') {
         return true;
       }
     }
   },
+
   /*
     // a CREATE action
     create: function(req, res, next) {
