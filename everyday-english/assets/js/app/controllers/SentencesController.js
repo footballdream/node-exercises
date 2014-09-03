@@ -120,7 +120,8 @@ $scope.maxSize = 5;
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
     , end = begin + $scope.numPerPage;
     // $scope.filteredSentences = $scope.sentences.slice(begin, end);
-    $scope.filteredSentences = Sentence.$search().$then(function(sentences) {      
+    $scope.filteredSentences = Sentence.$search().$then(function(sentences) {  
+      console.log(sentences)
       $scope.filteredSentences = sentences;
     })
   });

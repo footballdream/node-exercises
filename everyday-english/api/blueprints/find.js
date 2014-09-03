@@ -64,11 +64,10 @@ module.exports = function findRecords( req, res ) {
         actionUtil.subscribeDeep( req, record );
       } );
     }
-    res.set('X-Total-Pages','1000');
-    res.set('X-Total','10');
+    res.set('X-Total-Pages','10');
+    res.set('X-Total','100');
     res.set('X-Page','2');
     res.set('X-Per-Page','10');
-
     res.ok( actionUtil.emberizeJSON( Model, matchingRecords, req.options.associations, performSideload ) );
   } );
 };
