@@ -1,15 +1,17 @@
 'use strict';
 var module = angular.module('app.controllers');
-// sentence控制器
-module.controller('SentencesNewController', ['$scope', '$location', 'SentencesRest',
-    function ($scope, $location, SentencesRest) {
+module.controller('SentencesNewController', ['$scope', '$location', 'Sentence',
+  function($scope, $location, Sentence) {
 
-        $scope.manipulationName = '新建';
-        $scope.save = function () {
-            SentencesRest.create($scope.sentence);
-            $location.path('/sentences')
-        };
-        $scope.cancel = function () {
-            $location.path('/sentences');
-        };
-    }]);
+    $scope.manipulationName = '新建';
+
+    $scope.save = function() {
+      Sentence.$create($scope.sentence);
+      $location.path('/sentences')
+    };
+
+    $scope.cancel = function() {
+      $location.path('/sentences');
+    };
+  }
+]);

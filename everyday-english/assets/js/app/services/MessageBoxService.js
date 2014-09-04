@@ -5,7 +5,7 @@ module.service('MessageBoxService', ['$modal', function ($modal) {
         backdrop: true,
         keyboard: true,
         modalFade: true,
-        templateUrl: '/partials/messagebox.html'
+        templateUrl: 'app/partials/messagebox.html'
     };
 
     var modalOptions = {
@@ -47,4 +47,3 @@ module.service('MessageBoxService', ['$modal', function ($modal) {
         return $modal.open(tempModalDefaults).result;
     };
 }]);
-

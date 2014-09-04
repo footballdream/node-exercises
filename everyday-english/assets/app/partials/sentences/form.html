@@ -6,27 +6,28 @@
         <label for="english" class="col-sm-2 control-label">英文：</label>
 
         <div class="col-sm-8">
-          <textarea class="form-control" rows="2" name="english" ng-maxlength="120" ng-model="sentence.english" required></textarea>
+          <textarea class="form-control" rows="2" name="english"  ng-model="sentence.english"
+                    ng-maxlength="128" ng-minlength="12" required></textarea>
         </div>
       </div>
 
       <div class="form-group">
         <label for="chinese" class="col-sm-2 control-label">中文：</label>
-
         <div class="col-sm-8">
-          <textarea class="form-control" rows="2" name="chinese" ng-maxlength="120" ng-model="sentence.chinese" required></textarea>
+          <textarea class="form-control" rows="2" name="chinese" ng-model="sentence.chinese"
+                    ng-maxlength="128"></textarea>
         </div>
       </div>
 
       <div class="form-group">
         <label for="desc" class="col-sm-2 control-label">描述：</label>
-
         <div class="col-sm-8">
-          <textarea class="form-control" rows="4" name="desc" ng-model="sentence.desc"></textarea>
+          <textarea class="form-control" rows="5" name="description" ng-model="sentence.description"
+                    ng-maxlength="128"></textarea>
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-4 pull-right">
+        <div class="col-sm-3 pull-right">
           <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
             <span>确定</span>
           </button>

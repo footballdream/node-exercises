@@ -1,7 +1,9 @@
 'use strict';
 var module = angular.module('app.controllers');
 // sentence控制器
-module.controller('SentencesController', ['$scope', '$location', 'Sentence', 'MessageBoxService', function ($scope, $location, Sentence, MessageBoxService) {
+module.controller('SentencesController', ['$scope', '$location', 'Sentence',
+  'MessageBoxService',
+  function($scope, $location, Sentence, MessageBoxService) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -107,9 +109,8 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence', 'Me
     $scope.pageTotalPages = 1;
 
     $scope.updatePageInfo = function() {
-      var minIndex = (0 != $scope.pageTotal)
-        ? Math.max(($scope.pagePerPage * ($scope.pagePage - 1)) + 1, 1)
-        : 0;
+      var minIndex = (0 != $scope.pageTotal) ? Math.max(($scope.pagePerPage *
+        ($scope.pagePage - 1)) + 1, 1) : 0;
       var maxIndex = Math.min($scope.pagePerPage * $scope.pagePage, $scope
         .pageTotal)
       $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
@@ -117,15 +118,42 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence', 'Me
     };
 
     $scope.$watch('pagePage', function() {
-        var options = {
-          skip: (($scope.pagePage - 1) * $scope.pagePerPage),
-          limit: $scope.pagePerPage
-        };
-        Sentence.$search(options).$then(function(sentences) {
-          $scope.pageTotal = sentences.$pageTotal;
-          $scope.pageTotalPages = sentences.$pageTotalPages;
-          $scope.filteredSentences = sentences;
-          $scope.updatePageInfo();
+      var options = {
+        skip: (($scope.pagePage - 1) * $scope.pagePerPage),
+        limit: $scope.pagePerPage
+      };
+      Sentence.$search(options).$then(function(sentences) {
+        $scope.pageTotal = sentences.$pageTotal;
+        $scope.pageTotalPages = sentences.$pageTotalPages;
+        $scope.filteredSentences = sentences;
+        $scope.updatePageInfo();
+      })
+    });
+
+    $scope.showNew = function() {
+      $location.path('/sentences/new');
+    };
+
+
+    $scope.showUpdate = function(id) {
+      $location.path('/sentences/' + id);
+    };
+
+    $scope.showDelete = function(id) {
+      var modalOptions = {
+        closeButtonText: '取消',
+        actionButtonText: '确定',
+        headerText: '确认',
+        bodyText: '确定要删除吗？'
+      };
+
+      MessageBoxService.showModal({}, modalOptions).then(function(result) {
+        Sentence.$find(id).$then(function(sentence) {
+          sentence.$destroy();
+          $scope.pagePage = 1;
         })
       });
-}]);
+    };
+
+  }
+]);
