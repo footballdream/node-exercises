@@ -10,7 +10,7 @@ module.controller('SentencesUpdateController', ['$scope', '$location',
     });
 
     $scope.save = function() {
-      $scope.sentence.$save($scope.sentence);
+      $scope.sentence.$save();
       $location.path('/sentences')
     };
 

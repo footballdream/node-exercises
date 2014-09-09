@@ -1,12 +1,12 @@
 'use strict';
 var module = angular.module('app.controllers');
 // 目录控制器-修改
-module.controller('CategoriesUpdateController', ['$scope', '$location', '$routeParams', 'CategoriesRest',
-    function ($scope, $location, $routeParams, CategoriesRest) {
+module.controller('CategoriesUpdateController', ['$scope', '$location', '$routeParams', 'Category',
+    function ($scope, $location, $routeParams, Category) {
         $scope.manipulationName = '修改';
 
-        CategoriesRest.get($routeParams.id).then(function (category) {
-            $scope.category = category
+    Category.$find($routeParams.id).$then(function(category) {
+            $scope.category = category;
         });
 
         $scope.toggle = function() {
@@ -15,7 +15,7 @@ module.controller('CategoriesUpdateController', ['$scope', '$location', '$routeP
         }
 
         $scope.save = function () {
-            CategoriesRest.update($scope.category);
+          $scope.category.$save();            
             $location.path('/categories')
         };
 
