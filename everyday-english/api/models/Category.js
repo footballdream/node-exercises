@@ -7,20 +7,20 @@
 
 module.exports = {
   attributes: {
-    english: {
+    name: {
       type: 'string',
       required: true,
-      maxLength: 128
+      maxLength: 32
     },
-
-    chinese: {
-      type: 'string',
-      maxLength: 128
-    },
-
+    
     description: {
       type: 'string',
       maxLength: 512
+    },    
+    
+    ancestry: {
+      type: 'string',
+      maxLength: 255
     },
     
     toJSON: function() {

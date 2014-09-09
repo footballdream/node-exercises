@@ -1,0 +1,44 @@
+  <div class="panel panel-default">
+    <div class="panel-heading"><strong>目录 - {{manipulationName}}</strong></div>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal css-form" role="form" name="form" ng-submit="save()">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">上级目录：</label>
+        <div class="input-group col-sm-8">
+          <input class="form-control" name="parent-name" type="text" ng-model="category.parent_name" disabled
+                  ng-maxlength="32" > 
+          <span class="input-group-btn">
+            <a href="" ng-click="showSelectionDlg()" class="btn btn-default"><span>...</span></a>
+          </span>          
+        </div>
+      </div> 
+    
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">名称：</label>
+        <div class="input-group col-sm-8">
+          <input class="form-control" name="name" type="text" ng-model="category.name" 
+                 ng-maxlength="32" required>        
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="desc" class="col-sm-2 control-label">描述：</label>
+        <div class="input-group col-sm-8">
+          <textarea class="form-control" rows="5" name="description" ng-model="category.description"
+                     ng-maxlength="255"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-3 pull-right">
+          <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+            <span>确定</span>
+          </button>
+          <a href="" ng-click="cancel()" class="btn btn-default">
+            <span>取消</span>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+
