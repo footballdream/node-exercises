@@ -23,10 +23,16 @@ module.exports = {
       maxLength: 255
     },
     
+    getParentId: function (){
+      return this.ancestry;
+    },
+    
     toJSON: function() {
       var obj = this.toObject();
       delete obj.createdAt;
       delete obj.updatedAt;
+      obj.parentId = obj.getParentId();
+      obj.label = obj.name;
       return obj;
     }    
   }

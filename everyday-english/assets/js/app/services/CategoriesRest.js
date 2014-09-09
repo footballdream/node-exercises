@@ -25,7 +25,7 @@ module.factory('CategoriesRest', ['$http', 'TokenHandler', function ($http, Toke
             return promise;
         },
         tree: function () {
-            var url = "/everyday/api/1.0.0/categories/tree";
+            var url = "/api/v1/categories/asTree";
             var promise = $http.get(url, {params: {token: TokenHandler.get()}}).then(function (response) {
                 var data = response.data;
                 return data;

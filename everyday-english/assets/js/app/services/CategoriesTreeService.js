@@ -5,7 +5,7 @@ module.service('CategoriesTreeService', ['$modal', function ($modal) {
         backdrop: true,
         keyboard: true,
         modalFade: true,
-        templateUrl: '/partials/categories/tree.html'
+        templateUrl: 'app/partials/categories/tree.html'
     };
 
     var modalOptions = {

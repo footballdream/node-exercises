@@ -6,7 +6,24 @@
  */
 
 module.exports = {
+    
+    /**
+[{"label":"赖世雄经典语法","id":10001,"parent_id":null,"name":"赖世雄经典语法","description":null,"children":[{"label":"第一章","id":10002,"parent_id":10001,"name":"第一章","description":null,"children":[{"label":"第一节","id":10003,"parent_id":10002,"name":"第一节","description":null,"children":[]}]}]}]    
+    **/
 
+  asTree: function(req, res, next) {
+  var options = {};
+  Category.find(options, function(err, objects) {
+    if (undefined === objects) {
+      return res.notFound();
+    }
+    if (err) {
+      return next(err);
+    }
+    res.json(objects);
+  });      
+  },
+  
   // a FIND ONE action
   findOne: function(req, res, next) {
     var id = req.param('id');
