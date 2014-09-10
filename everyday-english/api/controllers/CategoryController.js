@@ -12,16 +12,38 @@ module.exports = {
     **/
 
   asTree: function(req, res, next) {
-  var options = {};
-  Category.find(options, function(err, objects) {
-    if (undefined === objects) {
-      return res.notFound();
-    }
-    if (err) {
-      return next(err);
-    }
-    res.json(objects);
-  });      
+    var options = {};
+    Category.find(options, function(err, objects) {
+      if (undefined === objects) {
+        return res.notFound();
+      }
+      if (err) {
+        return next(err);
+      }
+      res.json(buildTree(objects));
+    });
+    
+    function buildTree(objects) {
+      if (undefined == objects || 0 == objects.length){
+        return [];
+      }
+      var map = {}, node, roots = [];
+      for (var i = 0; i < objects.length; i += 1) {
+        node = objects[i];
+        delete node.createdAt;
+        delete node.updatedAt;
+        node.parentId = node.getParentId();
+        node.label = node.name;        
+        node.children = [];
+        map[node.id] = i; // use map to look-up the parents
+        if (node.parentId !== undefined) {
+          objects[map[node.parentId]].children.push(node);
+        } else {
+          roots.push(node);
+        }
+      }      
+      return roots;
+    }    
   },
   
   // a FIND ONE action

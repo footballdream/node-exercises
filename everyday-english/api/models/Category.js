@@ -22,9 +22,25 @@ module.exports = {
       type: 'string',
       maxLength: 255
     },
+    /*
+    children: {
+      collection: 'category',
+      via: 'wishlistedBy'
+    },*/
     
-    getParentId: function (){
-      return this.ancestry;
+    getParentId: function () {
+      if (undefined == this.ancestry) {
+        return undefined;
+      }
+      var len = this.ancestry.length;
+      if (0 == len) {
+        return undefined;
+      }
+      var index = this.ancestry.lastIndexOf('/');
+      if (-1 == index) {
+        return this.ancestry;
+      }
+      return this.ancestry.substring(index + 1, len);
     },
     
     toJSON: function() {
