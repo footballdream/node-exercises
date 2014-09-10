@@ -24,7 +24,7 @@ module.exports = {
     });
     
     function buildTree(objects) {
-      if (undefined == objects || 0 == objects.length){
+      if (undefined == objects || 0 == objects.length) {
         return [];
       }
       var map = {}, node, roots = [];
@@ -36,7 +36,7 @@ module.exports = {
         node.label = node.name;        
         node.children = [];
         map[node.id] = i; // use map to look-up the parents
-        if (node.parentId !== undefined) {
+        if (undefined !== node.parentId) {
           objects[map[node.parentId]].children.push(node);
         } else {
           roots.push(node);
