@@ -1,0 +1,23 @@
+{
+  "name": "monitor-data-protocol",
+  "version": "0.0.1",
+  "description": "protocol impl",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "log4js": "~0.6.18",
+    "hexy": "~0.2.6",
+    "coffee-script": "~1.7.1"
+  },
+  "devDependencies": {
+    "docco": "~0.6.2",
+    "jscoverage": "~0.3.6",
+    "jshint": "~1.1.0",
+    "mocha": "~1.9.0",
+    "should": "~1.2.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
