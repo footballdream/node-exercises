@@ -34,6 +34,5 @@ exports.createMessage = function(typeId, id, serial, values) {
 
 exports.parseFrame = function(){}
 
-exports.parseMessage = function() {
-
+exports.parseMessage = function(data) {
 }

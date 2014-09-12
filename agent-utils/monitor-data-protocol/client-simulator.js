@@ -6,19 +6,25 @@ log4js.configure('log4js.json', {
 var logger = log4js.getLogger('client');
 
 
-var server = '127.0.0.1';
+var server = '172.18.17.67';
 var serverPort = 2103;
 
 var options = {
   allowHalfOpen: false,
   host: server,
   port: serverPort,
-  localAddress: '127.0.0.1',
-  localPort: 2103
+  // localAddress: '127.0.0.1',
+  // localPort: 2103
 };
 var net = require('net');
+var Frap = require('frap')
+var hexy = require('hexy');
 var client = net.createConnection(options, function() {
   logger.info('client socket connected to ' + server + ":" + serverPort);
+    var frap = new Frap(client);
+    frap.on('frame', function(bufs, framelen) {
+      console.log("framelen:", framelen);
+    });  
 });
 
 client.on('error', function(error) {
@@ -32,13 +38,13 @@ client.on('error', function(error) {
   logger.error(text);
 });
 
-var hexy = require('hexy');
 var util = require('util');
 var messages = require('./messages');
 var receiverLogger = log4js.getLogger('receiver');
 client.on('data', function(data) {
-  receiverLogger.debug('received data, length=' + data.length + ', bytes=\n' +
-    hexy.hexy(data));
+  //receiverLogger.debug('received data, length=' + data.length);// + ', bytes=\n' +
+    // hexy.hexy(data));
+    //messages.parseMessage(data);
 });
 
 client.on('close', function(had_error) {
@@ -46,3 +52,5 @@ client.on('close', function(had_error) {
     had_error);
   process.exit();
 });
+
+
