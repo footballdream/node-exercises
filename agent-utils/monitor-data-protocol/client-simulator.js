@@ -22,8 +22,8 @@ var hexy = require('hexy');
 var client = net.createConnection(options, function() {
   logger.info('client socket connected to ' + server + ":" + serverPort);
     var frap = new Frap(client);
-    frap.on('frame', function(bufs, framelen) {
-      console.log("framelen:", framelen);
+    frap.on('header', function(framelen) {
+      console.log("get header, framelen:", framelen);
     });  
 });
 
