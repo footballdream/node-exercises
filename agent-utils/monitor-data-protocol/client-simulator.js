@@ -17,14 +17,18 @@ var options = {
   // localPort: 2103
 };
 var net = require('net');
-var Frap = require('frap')
+var Frap = require('./frap')
 var hexy = require('hexy');
 var client = net.createConnection(options, function() {
   logger.info('client socket connected to ' + server + ":" + serverPort);
-    var frap = new Frap(client);
-    frap.on('header', function(framelen) {
-      console.log("get header, framelen:", framelen);
-    });  
+  var frap = new Frap(client);
+  var frameLogger = log4js.getLogger('receiver');
+  frap.on('header', function(framelen, typeId, serial, id) {
+    frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
+  }); 
+  frap.on('data', function(data) {
+    frameLogger.debug('get a frame, bytes=\n' +  hexy.hexy(data));
+  });     
 });
 
 client.on('error', function(error) {
