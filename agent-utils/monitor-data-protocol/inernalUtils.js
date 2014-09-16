@@ -8,5 +8,5 @@ exports.cppString2JsString = function(buffer, offset) {
       break;
     }
   }
-  return buffer.toString('ascii', offset, end);
+  return buffer.toString('gbk', offset, end);
 }

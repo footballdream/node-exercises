@@ -7,6 +7,7 @@ var Dequeue = require('dequeue')
   , assert = require('assert')
   , u = require('underscore')
 
+// 合并buffer
 function _concat(bufs, len) {
   if (bufs.length === 0) return new Buffer(0)
   if (bufs.length === 1) return bufs[0]
@@ -19,17 +20,21 @@ function _concat(bufs, len) {
   return nbuf
 }
 
+// 可能是前面的Node版本中，Buffer还没有concat方法
 var concat = Buffer.hasOwnProperty('concat') ? Buffer.concat : _concat
 
+// 导出类
 exports = module.exports = FrapReader
 
 var DEFAULT_OPTIONS = { emit: 'data' }
 
 function FrapReader(opt) {
+  // ?? 继承，使之继承自EventEmitter 
   Stream.call(this)
 
   opt = u.defaults(opt||{}, DEFAULT_OPTIONS)
 
+  // 检查参数
   if (toString.call(opt) === '[object Object]' && opt.emit &&
       (opt.emit === 'data' || opt.emit === 'frame' || opt.emit === 'basic'))
     this.emit_level = opt.emit
@@ -45,6 +50,7 @@ function FrapReader(opt) {
   this.p.flen = 0 //frame length
   this.p.hpos = 0 //current position in the header
   this.p.fpos = 0 //current position in the frame
+  
   this.p.mtype = 0;
   this.p.mid = 0;
   this.p.mserial = 0;
@@ -53,6 +59,7 @@ function FrapReader(opt) {
   switch(this.emit_level) {
     case 'data':
     this.on('frame', function(bufs, framelen){
+      // 响应自身的frame事件，合并从frame事件中得到的数据，传播data事件
       if (self.listeners('data').length > 0) {
         //micro-optimization to avoid concat
         var buf = concat(bufs, framelen)
@@ -91,29 +98,54 @@ Object.defineProperty(FrapReader, 'DEFAULT_EMIT_LEVEL',
 FrapReader.prototype.parse = function parse(buf) {
   var idx = 0
 
+  // console.trace();
   while (idx < buf.length) {
     switch (this.p.hpos) { //header is big-endian uint32
       case 0:
-      this.p.mtype |= buf[idx] << 24
+        this.p.mtype |= buf[idx] << 24
+        idx += 1
+        this.p.hpos += 1
+        break;      
       case 1:
-      this.p.mtype |= buf[idx] << 16
+        this.p.mtype |= buf[idx] << 16
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 2:
-      this.p.mtype |= buf[idx] << 8        
+        this.p.mtype |= buf[idx] << 8 
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 3:
-      this.p.mtype |= buf[idx]        
+        this.p.mtype |= buf[idx]
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 4:
-      this.p.mserial |= buf[idx]        
+        this.p.mserial |= buf[idx]
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 5:
-      this.p.mid |= buf[idx] << 24
+        this.p.mid |= buf[idx] << 24
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 6:
-      this.p.mid |= buf[idx] << 16
+        this.p.mid |= buf[idx] << 16
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 7:
-      this.p.mid |= buf[idx] << 8        
+        this.p.mid |= buf[idx] << 8   
+        idx += 1
+        this.p.hpos += 1
+        break;         
       case 8:
-      this.p.mid |= buf[idx]        
-      idx += 1
-      this.p.hpos += 1
-      break;
+        this.p.mid |= buf[idx]        
+        idx += 1
+        this.p.hpos += 1
+        break;
 
       case 9:
       this.p.flen |= buf[idx] << 24
@@ -163,6 +195,10 @@ FrapReader.prototype.parse = function parse(buf) {
         this.p.flen = 0
         this.p.hpos = 0
         this.p.fpos = 0
+        
+        this.p.mtype = 0;
+        this.p.mid = 0;
+        this.p.mserial = 0;        
       }
     } //switch
   } //while

@@ -10,9 +10,11 @@
     "log4js": "~0.6.18",
     "hexy": "~0.2.6",
     "frap": "~1.1.0",
+    "binary-protocol": "",
     "coffee-script": "~1.7.1",
     "dequeue": "",
-    "underscore": ""    
+    "underscore": "",
+    "iconv-lite": "0.4.4"
   },
   "devDependencies": {
     "docco": "~0.6.2",

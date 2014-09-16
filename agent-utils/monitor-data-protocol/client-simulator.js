@@ -1,4 +1,7 @@
 "use strict";
+var iconv = require('iconv-lite');
+iconv.extendNodeEncodings();
+
 var log4js = require('log4js');
 log4js.configure('log4js.json', {
   reloadSecs: 60
@@ -19,15 +22,83 @@ var options = {
 var net = require('net');
 var Frap = require('./frap')
 var hexy = require('hexy');
+var internal = require('./inernalUtils');
 var client = net.createConnection(options, function() {
   logger.info('client socket connected to ' + server + ":" + serverPort);
   var frap = new Frap(client);
   var frameLogger = log4js.getLogger('receiver');
   frap.on('header', function(framelen, typeId, serial, id) {
-    frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
+    // frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
   }); 
+  var BinaryProtocol = require('binary-protocol');
+  var protocol = new BinaryProtocol();
+
+// define a type called 'Bytes', which is simply
+// a series of raw bytes prefixed by length.
+protocol.define('Bytes', {
+  read: function (propertyName) {
+    this
+    .pushStack({length: null, value: null}) // allocate a new object to read the data into.
+    .Int32BE('length') // read a 32 bit integer into the `length` property.
+    .tap(function (data) {
+      if (data.length === -1) {
+        // if the length is -1, then there are no bytes and the value is null.
+        data.value = null;
+        return;
+      }
+      this.raw('value', data.length); // read N bytes into a property called `value`
+    })
+    .popStack(propertyName, function (data) {
+      // pop the interim value off the stack and insert the real value into `propertyName`
+      return data.value;
+    });
+  },
+  write: function (value) {
+    if (value === null) {
+      this.Int32BE(-1); // a length of -1 indicates a null value.
+    }
+    else {
+      // value is a buffer
+      this
+      .Int32BE(value.length) // write the buffer length
+      .raw(value); // write the raw buffer
+    }
+  }
+});  
+  
+// define a type called `String`, which is encoded as a length
+// prefixed series of bytes.
+protocol.define('String', {
+  read: function (propertyName) {
+    this
+    .Bytes(propertyName) // read `Bytes` into the property name.
+    .collect(function (data) {
+      // collect the final data to return
+      if (data[propertyName] !== null) {
+        data[propertyName] = data[propertyName].toString('utf8');
+      }
+      return data;
+    });
+  },
+  write: function (value) {
+    this.Bytes(new Buffer(value, 'utf8'));
+  }
+});  
   frap.on('data', function(data) {
-    frameLogger.debug('get a frame, bytes=\n' +  hexy.hexy(data));
+    if (60 !== data.length) {
+      // frameLogger.debug('get a frame, bytes=\n' +  hexy.hexy(data));
+    }
+    else {
+      var reader = protocol.createReader(data);
+      reader.UInt32BE('deviceType')
+            .raw('deviceName', 50)
+            .UInt8("onlineStatus")
+            .raw('skip', 1)
+            .UInt32BE('onlineTerminalCount');
+      var info = reader.next();
+      info.deviceName = internal.cppString2JsString(info.deviceName, 0);
+      console.info(info);
+    }
   });     
 });
 
