@@ -30,7 +30,7 @@ var client = net.createConnection(options, function() {
   frap.on('header', function(framelen, typeId, serial, id) {
     // frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
   }); 
-  var BinaryProtocol = require('binary-protocol');
+  var BinaryProtocol = require('./binary-protocol');
   var protocol = new BinaryProtocol();
 
 // define a type called 'Bytes', which is simply

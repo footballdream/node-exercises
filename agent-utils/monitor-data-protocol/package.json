@@ -14,7 +14,8 @@
     "coffee-script": "~1.7.1",
     "dequeue": "",
     "underscore": "",
-    "iconv-lite": "0.4.4"
+    "iconv-lite": "0.4.4",
+    "bluebird": "~2.2.2"    
   },
   "devDependencies": {
     "docco": "~0.6.2",
