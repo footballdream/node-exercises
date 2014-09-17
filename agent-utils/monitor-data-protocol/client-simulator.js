@@ -10,6 +10,7 @@ var logger = log4js.getLogger('client');
 
 
 var server = '172.18.17.67';
+// var server = '127.0.0.1';
 var serverPort = 2103;
 
 var options = {
@@ -28,7 +29,7 @@ var client = net.createConnection(options, function() {
   var frap = new Frap(client);
   var frameLogger = log4js.getLogger('receiver');
   frap.on('header', function(framelen, typeId, serial, id) {
-    // frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
+     // frameLogger.debug("get a frame header, typeId=" + typeId + ", serial=" + serial + ", id=" + id + ", dataLength=" + framelen);
   }); 
   var BinaryProtocol = require('./binary-protocol');
   var protocol = new BinaryProtocol();
@@ -84,7 +85,24 @@ protocol.define('String', {
     this.Bytes(new Buffer(value, 'utf8'));
   }
 });  
-  frap.on('data', function(data) {
+  frap.on('data', function(data, typeId, id, serial) {
+     //var msg = util.format('get a frame, typeId=%d, id=%d, serial=%d, frameLength=%d', typeId, id, serial, data.length);
+     //frameLogger.debug(msg);
+     if(messages.MessageTypeIds.MSG_TYPE_HEART === typeId 
+         && messages.MessageIds.COMM_TYPE_SERVER_HANDSHAKE) {
+          var msg = util.format('get a frame, typeId=%d, id=%d, serial=%d, frameLength=%d', typeId, id, serial, data.length);
+          frameLogger.debug(msg);
+          var buf = new Buffer(13);
+          var index = 0;
+          buf.writeUInt32BE(typeId, index);
+          index += 4;
+          buf.writeUInt8(serial, index);
+          index += 1;
+          buf.writeUInt32BE(id, index);
+          index += 4;
+          buf.writeUInt32BE(0, index);
+          client.write(buf);
+       }
     if (60 !== data.length) {
       // frameLogger.debug('get a frame, bytes=\n' +  hexy.hexy(data));
     }
@@ -97,7 +115,7 @@ protocol.define('String', {
             .UInt32BE('onlineTerminalCount');
       var info = reader.next();
       info.deviceName = internal.cppString2JsString(info.deviceName, 0);
-      console.info(info);
+      // console.info(info);
     }
   });     
 });

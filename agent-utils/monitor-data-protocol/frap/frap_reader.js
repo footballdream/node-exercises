@@ -66,7 +66,7 @@ function FrapReader(opt) {
         if (self.defaultEncoding)
           self.emit('data', buf.toString(self.defaultEncoding))
         else
-          self.emit('data', buf)
+          self.emit('data', buf, this.p.mtype, this.p.mid, this.p.mserial);
       }
     })
     //fallthru intentionally
@@ -170,8 +170,8 @@ FrapReader.prototype.parse = function parse(buf) {
       this.p.hpos += 1
       idx += 1
 
-      this._submit('header', this.p.flen, this.p.mtype, this.p.mserial, this.p.mid)
-      console.info("typeId=" + this.p.mtype + ", serial=" + this.p.mserial + ", id=" + this.p.mid);
+      this._submitHeader(this.p.flen, this.p.mtype, this.p.mserial, this.p.mid)
+      // console.info("typeId=" + this.p.mtype + ", serial=" + this.p.mserial + ", id=" + this.p.mid);
       if (this.p.flen === 0) { //support zero-length frames
         this._submit('part', 0, new Buffer(0), 0)
         this.p.hpos = 0
@@ -214,6 +214,15 @@ FrapReader.prototype._submit = function _submit(event, framelen, pbuf, pos) {
     this.parsedq.push([event, framelen, pbuf, pos])
   else
     this.dispatchOne(event, framelen, pbuf, pos)
+  return
+}
+
+FrapReader.prototype._submitHeader = function _submit(flen, mtype, mserial, mid) {
+  // when event == 'header' pbuf and pos are undefined
+  if (this.paused)
+    this.parsedq.push(['header', flen, mtype, mserial, mid])
+  else
+    this.emit('header', flen, mtype, mserial, mid)
   return
 }
 
