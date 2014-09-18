@@ -17,8 +17,8 @@ module.controller('CategoriesNewController', ['$scope', '$location', 'Categories
             };
             onSelectionCategoryOk = function() {
                 console.log("call parentName");
-                 $scope.category.parent_id= $scope.selectedParent.id;
-                 $scope.category.parent_name= $scope.selectedParent.name;
+                 $scope.category.parentId= $scope.selectedParent.id;
+                 $scope.category.parentName= $scope.selectedParent.name;
             };
             CategoriesRest.tree().then(function (categoryTree) {
                 my_treedata = categoryTree;
