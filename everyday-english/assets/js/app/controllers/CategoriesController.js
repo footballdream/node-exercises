@@ -1,8 +1,8 @@
 'use strict';
 var module = angular.module('app.controllers');
 module.controller('CategoriesController', ['$scope', '$location', 'Category',
-  'MessageBoxService',
-  function($scope, $location, Category, MessageBoxService) {
+  'MessageBoxService', 'toaster', 
+  function($scope, $location, Category, MessageBoxService, toaster) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -41,6 +41,10 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
       $location.path('/categories/new');
     };
 
+    $scope.refresh = function () {
+      console.log(toaster);
+      toaster.pop('success', "title", "text");        
+    }    
 
     $scope.showUpdate = function(id) {
       $location.path('/categories/' + id);

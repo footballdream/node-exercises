@@ -1,4 +1,4 @@
 'use strict';
-angular.module('app.controllers', ['ngRoute', 'app.services']);
+angular.module('app.controllers', ['ngRoute', 'toaster', 'app.services']);
 
 

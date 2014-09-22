@@ -1,7 +1,7 @@
 'use strict';
 
 // declare app level module which depends on filters, and services
-var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap',
+var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'toaster', 
     'app.filters',
     'app.services',
     'app.directives',
