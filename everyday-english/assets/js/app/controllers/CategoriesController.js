@@ -1,8 +1,10 @@
 'use strict';
 var module = angular.module('app.controllers');
 module.controller('CategoriesController', ['$scope', '$location', 'Category',
-  'MessageBoxService', 'toaster', 
-  function($scope, $location, Category, MessageBoxService, toaster) {
+  'MessageBoxService', 'toaster', 'blockUI', '$timeout',
+
+  function($scope, $location, Category, MessageBoxService, toaster, blockUI,
+    $timeout) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -30,10 +32,14 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
         limit: $scope.pagePerPage
       };
       Category.$search(options).$then(function(categorys) {
+        blockUI.start();
         $scope.pageTotal = categorys.$pageTotal;
         $scope.pageTotalPages = categorys.$pageTotalPages;
         $scope.filteredCategories = categorys;
         $scope.updatePageInfo();
+        $timeout(function() {
+          blockUI.stop();
+        }, 500);
       })
     });
 
@@ -41,10 +47,10 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
       $location.path('/categories/new');
     };
 
-    $scope.refresh = function () {
+    $scope.refresh = function() {
       console.log(toaster);
-      toaster.pop('success', "title", "text");        
-    }    
+      toaster.pop('success', "title", "text");
+    }
 
     $scope.showUpdate = function(id) {
       $location.path('/categories/' + id);

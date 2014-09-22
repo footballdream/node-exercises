@@ -11,7 +11,8 @@
     "angular-bootstrap-nav-tree": "",
     "angular-restmod": "~0.18.0",
     "AngularJS-Toaster": "~0.4.7",
-    
+    "angular-block-ui": "",
+
     "jquery": "~2.1.1",
     "underscore": "~1.6.0",
 
