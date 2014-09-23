@@ -14,7 +14,7 @@ var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap',
 appModule.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.when('/signin', {
-      templateUrl: 'app/partials/signin/home',
+      templateUrl: 'app/partials/signin/home.html',
       controller: 'SigninController'
     });
 

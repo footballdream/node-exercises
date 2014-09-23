@@ -1,0 +1,30 @@
+<div style="background-color: #F9F9F9;" class="col-md-offset-4 col-md-4">
+  <form style="margin: 40px 40px 68px 40px" class="form-horizontal" role="form"
+        name="loginForm" novalidate rc-attempt rc-submit="signin()">
+    <h2>登录</h2>
+
+    <div class="form-group"
+         ng-class="{'has-error': rc.loginForm.needsAttention(loginForm.username), 'has-success': loginForm.username.$valid}">
+      <input class="form-control" id="inputUserName" name="username" type="text" placeholder="用户名"
+             required focus-me="true" ng-model="session.username"/>
+      <span class="help-block" ng-show="rc.loginForm.needsAttention(loginForm.username)">请输入用户名。</span>
+    </div>
+    <div class="form-group"
+         ng-class="{'has-error': rc.loginForm.needsAttention(loginForm.password), 'has-success': loginForm.password.$valid}">
+      <input class="form-control" id="inputPassword" name="password" type="password" placeholder="密码"
+             required ng-model="session.password"/>
+      <span class="help-block" ng-show="rc.loginForm.needsAttention(loginForm.password)">请输入密码。</span>
+      <span class="help-block"></span>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block btn-lg">
+        <span>登录</span>
+      </button>
+    </div>
+    <div class="form-group" ng-show="session.showMessage">
+      <div>
+        <p class="text-danger">{{session.message}}</p>
+      </div>
+    </div>
+  </form>
+</div>
