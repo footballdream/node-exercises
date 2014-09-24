@@ -23,44 +23,79 @@
 module.exports.routes = {
 
   /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+   * etc. depending on your default view engine) your home page.              *
+   *                                                                          *
+   * (Alternatively, remove this and add an `index.html` file in your         *
+   * `assets` directory)                                                      *
+   *                                                                          *
+   ***************************************************************************/
 
   '/': {
     view: 'home'
   },
 
   /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it  *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Custom routes here...                                                    *
+   *                                                                          *
+   * If a request to a URL doesn't match any of the custom routes above, it  *
+   * is matched against Sails route blueprints. See `config/blueprints.js`    *
+   * for configuration options and examples.                                  *
+   *                                                                          *
+   ***************************************************************************/
 
-  'GET /sentence': {controller: "SentenceGuiController", action: "index" },
-  'GET /sentence/new': {controller: "SentenceGuiController", action: "new" },
-  'POST /sentence/create': {controller: "SentenceGuiController", action: "create" },
-  'GET /sentence/show/:id': {controller: "SentenceGuiController", action: "show" },
-  'GET /sentence/edit/:id': {controller: "SentenceGuiController", action: "edit" },
-  'POST /sentence/update/:id': {controller: "SentenceGuiController", action: "update" },
-  'GET /sentence/destroy/:id': {controller: "SentenceGuiController", action: "destroy" },
+  'GET /sentence': {
+    controller: "SentenceGuiController",
+    action: "index"
+  },
+  'GET /sentence/new': {
+    controller: "SentenceGuiController",
+    action: "new"
+  },
+  'POST /sentence/create': {
+    controller: "SentenceGuiController",
+    action: "create"
+  },
+  'GET /sentence/show/:id': {
+    controller: "SentenceGuiController",
+    action: "show"
+  },
+  'GET /sentence/edit/:id': {
+    controller: "SentenceGuiController",
+    action: "edit"
+  },
+  'POST /sentence/update/:id': {
+    controller: "SentenceGuiController",
+    action: "update"
+  },
+  'GET /sentence/destroy/:id': {
+    controller: "SentenceGuiController",
+    action: "destroy"
+  },
 
+  'GET /login': {
+    controller: 'AuthController',
+    action: 'login'
+  },
 
+  'POST /login': {
+    controller: 'AuthController',
+    action: 'process'
+  },
 
+  'GET /logout': {
+    controller: 'AuthController',
+    action: 'logout'
+  }
+
+  /*
   'GET /app/partials/sentences/home': {controller: "SentenceSpaController", action: "home" },
   'GET /app/partials/sentences/form': {controller: "SentenceSpaController", action: "form" },
 
   'GET /app/partials/signin/home': {controller: "SigninSpaController", action: "home" },
-
+*/
 
 
 };
