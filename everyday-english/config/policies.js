@@ -30,6 +30,10 @@ module.exports.policies = {
 
   '*': 'sessionAuth',
 
+  'HomeSpaController': {
+    '*': true
+  },
+  
   'AuthController': {
     '*': true
   }
