@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html ng-app="app">
-  <% include _header %>
+  <%- partial('_header') %>
   <body>
-    <toaster-container></toaster-container>  
+    <toaster-container></toaster-container>
     <div id="wrap">
-      <% include _topnav %>
-      <% include _sidenav %>
+      <%- partial('_topnav') %>
+      <%- partial('_sidenav') %>
       <%- body %>
     </div>
-    <% include _footer %>
+    <%- partial('_footer') %>
   </body>
 </html>
