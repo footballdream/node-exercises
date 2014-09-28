@@ -50,6 +50,22 @@ appModule.config(['$routeProvider',
       controller: 'CategoriesUpdateController'
     });
 
+    // word table
+    $routeProvider.when('/words', {
+      templateUrl: 'app/partials/words/home.html',
+      controller: 'WordsController'
+    });
+    // new word
+    $routeProvider.when('/words/new', {
+      templateUrl: 'app/partials/words/form.html',
+      controller: 'WordsNewController'
+    });
+    // update word
+    $routeProvider.when('/words/:id', {
+      templateUrl: 'app/partials/words/form.html',
+      controller: 'WordsUpdateController'
+    });    
+    
     $routeProvider.when('/about', {
       templateUrl: 'app/partials/about.html',
       controller: 'CategoriesUpdateController'
