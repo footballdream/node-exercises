@@ -12,7 +12,7 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
 
     $scope.filteredCategories = [];
     $scope.pageMaxShowing = 5;
-    $scope.pagePerPage = 9;
+    $scope.pagePerPage = 8;
     $scope.pagePage = 1;
     $scope.pageTotal = 0;
     $scope.pageTotalPages = 1;

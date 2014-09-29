@@ -66,6 +66,22 @@ appModule.config(['$routeProvider',
       controller: 'WordsUpdateController'
     });    
     
+    // meaning table
+    $routeProvider.when('/meanings', {
+      templateUrl: 'app/partials/meanings/home.html',
+      controller: 'MeaningsController'
+    });
+    // new meaning
+    $routeProvider.when('/meanings/new', {
+      templateUrl: 'app/partials/meanings/form.html',
+      controller: 'MeaningsNewController'
+    });
+    // update meaning
+    $routeProvider.when('/meanings/:id', {
+      templateUrl: 'app/partials/meanings/form.html',
+      controller: 'MeaningsUpdateController'
+    });     
+    
     $routeProvider.when('/about', {
       templateUrl: 'app/partials/about.html',
       controller: 'CategoriesUpdateController'

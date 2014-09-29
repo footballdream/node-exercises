@@ -1,9 +1,9 @@
 'use strict';
 var module = angular.module('app.controllers');
-// sentence控制器
-module.controller('SentencesController', ['$scope', '$location', 'Sentence',
+// word控制器
+module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
   'MessageBoxService',
-  function($scope, $location, Sentence, MessageBoxService) {
+  function($scope, $location, Meaning, MessageBoxService) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -101,7 +101,7 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
     $scope.refresh()
     */
 
-    $scope.filteredSentences = [];
+    $scope.filteredObjects = [];
     $scope.pageMaxShowing = 5;
     $scope.pagePerPage = 8;
     $scope.pagePage = 1;
@@ -122,21 +122,21 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
       };
-      Sentence.$search(options).$then(function(sentences) {
-        $scope.pageTotal = sentences.$pageTotal;
-        $scope.pageTotalPages = sentences.$pageTotalPages;
-        $scope.filteredSentences = sentences;
+      Meaning.$search(options).$then(function(objects) {
+        $scope.pageTotal = objects.$pageTotal;
+        $scope.pageTotalPages = objects.$pageTotalPages;
+        $scope.filteredObjects = objects;
         $scope.updatePageInfo();
       })
     });
 
     $scope.showNew = function() {
-      $location.path('/sentences/new');
+      $location.path('/meanings/new');
     };
 
 
     $scope.showUpdate = function(id) {
-      $location.path('/sentences/' + id);
+      $location.path('/meanings/' + id);
     };
 
     $scope.showDelete = function(id) {
@@ -148,8 +148,8 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
       };
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
-        Sentence.$find(id).$then(function(sentence) {
-          sentence.$destroy();
+        Meaning.$find(id).$then(function(object) {
+          object.$destroy();
           $scope.pagePage = 1;
         })
       });
