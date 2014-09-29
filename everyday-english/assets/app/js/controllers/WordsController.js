@@ -103,7 +103,7 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
 
     $scope.filteredObjects = [];
     $scope.pageMaxShowing = 5;
-    $scope.pagePerPage = 7;
+    $scope.pagePerPage = 8;
     $scope.pagePage = 1;
     $scope.pageTotal = 0;
     $scope.pageTotalPages = 1;
