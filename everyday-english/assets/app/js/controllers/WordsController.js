@@ -131,12 +131,12 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
     });
 
     $scope.showNew = function() {
-      $location.path('/sentences/new');
+      $location.path('/words/new');
     };
 
 
     $scope.showUpdate = function(id) {
-      $location.path('/sentences/' + id);
+      $location.path('/words/' + id);
     };
 
     $scope.showDelete = function(id) {
@@ -148,8 +148,8 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
       };
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
-        Sentence.$find(id).$then(function(sentence) {
-          sentence.$destroy();
+        Word.$find(id).$then(function(object) {
+          object.$destroy();
           $scope.pagePage = 1;
         })
       });
