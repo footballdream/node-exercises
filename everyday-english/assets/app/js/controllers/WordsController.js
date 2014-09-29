@@ -1,9 +1,9 @@
 'use strict';
 var module = angular.module('app.controllers');
 // word控制器
-module.controller('WordsController', ['$scope', '$location', 'Sentence',
+module.controller('WordsController', ['$scope', '$location', 'Word',
   'MessageBoxService',
-  function($scope, $location, Sentence, MessageBoxService) {
+  function($scope, $location, Word, MessageBoxService) {
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';
@@ -101,9 +101,9 @@ module.controller('WordsController', ['$scope', '$location', 'Sentence',
     $scope.refresh()
     */
 
-    $scope.filteredSentences = [];
+    $scope.filteredObjects = [];
     $scope.pageMaxShowing = 5;
-    $scope.pagePerPage = 9;
+    $scope.pagePerPage = 7;
     $scope.pagePage = 1;
     $scope.pageTotal = 0;
     $scope.pageTotalPages = 1;
@@ -122,10 +122,10 @@ module.controller('WordsController', ['$scope', '$location', 'Sentence',
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
       };
-      Sentence.$search(options).$then(function(sentences) {
-        $scope.pageTotal = sentences.$pageTotal;
-        $scope.pageTotalPages = sentences.$pageTotalPages;
-        $scope.filteredSentences = sentences;
+      Word.$search(options).$then(function(objects) {
+        $scope.pageTotal = objects.$pageTotal;
+        $scope.pageTotalPages = objects.$pageTotalPages;
+        $scope.filteredObjects = objects;
         $scope.updatePageInfo();
       })
     });

@@ -36,7 +36,7 @@
         </td>
       </tr>
       <tr>
-        <th style="width: 48px">序号</th>
+        <th style="width: 50px">序号</th>
         <th style="width: 60px">
           <a href="" ng-click="sort('id')">
             ID <span ng-show="sortField == 'id'">
@@ -47,7 +47,7 @@
         </th>
         <th>
           <a href="" ng-click="sort('english')">
-            名称 <span ng-show="sortField == 'english'">
+            内容 <span ng-show="sortField == 'english'">
             <span ng-show="!sortReverse"><i class="fa fa-sort-asc"></i></span>
             <span ng-show="sortReverse"><i class="fa fa-sort-desc"></i></span>
           </span>
@@ -65,10 +65,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr style="text-align: center" ng-repeat='e in filteredCategories'>
+      <tr style="text-align: center" ng-repeat='e in filteredObjects'>
         <td>{{$index + 1}}</td>
         <td>{{e.id}}</td>
-        <td style="text-align: left">{{e.name}}</td>
+        <td style="text-align: left">{{e.content}}</td>
         <td style="text-align: left">{{e.description}}</td>
         <td style="width: 48px"><a href="" ng-click="showDelete(e.id)"><i class="fa fa-minus"></i></a></td>
         <td style="width: 48px"><a href="" ng-click="showUpdate(e.id)"><i class="fa fa-pencil"></i></a></td>
