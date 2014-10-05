@@ -17,6 +17,11 @@ appModule.config(['$routeProvider',
       templateUrl: 'app/partials/signin/home.html',
       controller: 'SigninController'
     });
+    
+    $routeProvider.when('/blackboard', {
+      templateUrl: 'app/partials/blackboard/home.html',
+      controller: 'BlackboardController'
+    });    
 
     // sentences table
     $routeProvider.when('/sentences', {
@@ -90,7 +95,7 @@ appModule.config(['$routeProvider',
 
     // 缺省导航到登录
     $routeProvider.otherwise({
-      redirectTo: '/signin'
+      redirectTo: '/blackboard'
     });
   }
 ]);

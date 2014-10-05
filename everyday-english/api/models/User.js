@@ -6,6 +6,7 @@
  */
 
 var bcrypt = require('bcrypt');
+var SALT_WORK_FACTOR = 10;
 
 module.exports = {
 
@@ -27,7 +28,7 @@ module.exports = {
   },
 
   beforeCreate: function(user, cb) {
-    bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
       bcrypt.hash(user.password, salt, function(err, hash) {
         if (err) {
           console.log(err);
