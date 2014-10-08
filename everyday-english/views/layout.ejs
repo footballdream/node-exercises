@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app" ng-controller="AppController">
   <%- partial('_header') %>
   <body>
     <toaster-container></toaster-container>
     <%- partial('_topnav') %>
     <%- partial('_sidenav') %>
-    <div style="margin-top: 2px" class="container-fluid col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
-      <%- body %>
-    </div>
+    <%- body %>
     <%- partial('_footer') %>
   </body>
 </html>

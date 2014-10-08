@@ -95,7 +95,7 @@ appModule.config(['$routeProvider',
 
     // 缺省导航到登录
     $routeProvider.otherwise({
-      redirectTo: '/blackboard'
+      redirectTo: '/signin'
     });
   }
 ]);
