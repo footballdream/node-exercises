@@ -90,13 +90,4 @@ module.exports.routes = {
     controller: 'AuthController',
     action: 'logout'
   }
-
-  /*
-  'GET /app/partials/sentences/home': {controller: "SentenceSpaController", action: "home" },
-  'GET /app/partials/sentences/form': {controller: "SentenceSpaController", action: "form" },
-
-  'GET /app/partials/signin/home': {controller: "SigninSpaController", action: "home" },
-*/
-
-
 };

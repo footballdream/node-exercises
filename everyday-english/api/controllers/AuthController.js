@@ -1,10 +1,10 @@
 /**
- * AuthControllerController
+ * AuthController
  *
  * @description :: Server-side logic for managing Authcontrollers
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-
+ 
 var passport = require('passport');
 module.exports = {
 
@@ -28,6 +28,7 @@ module.exports = {
       });
     })(req, res);
   },
+  
   logout: function(req, res) {
     req.logout();
     res.send('logout successful');
