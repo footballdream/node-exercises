@@ -1,14 +1,11 @@
 'use strict';
-
-/* Filters */
-
-var filtersModule = angular.module('app.filters', []);
-filtersModule.filter('interpolate', ['version', function(version) {
+var module = angular.module('app.filters', []);
+module.filter('interpolate', ['version', function(version) {
     return function(text) {
       return String(text).replace(/\%VERSION\%/mg, version);
     }
   }]);
-filtersModule.filter('status', [function() {
+module.filter('status', [function() {
     return function(input) {
       var output = 'ERROR';
       if (input) {
@@ -20,7 +17,7 @@ filtersModule.filter('status', [function() {
     }
   }]);
 
-filtersModule.filter('number2Date', [function() {
+module.filter('number2Date', [function() {
     return function(input) {
       return new Date(input);
     }

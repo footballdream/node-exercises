@@ -2,9 +2,12 @@
 var module = angular.module('app.controllers');
 module.controller('AppController', ['$scope', 
   function($scope) {
-    $scope.mainUi = {};
-    $scope.mainUi.showingTopNav = false;
-    $scope.mainUi.showingSideNav = false;
+    $scope.mainUi = {
+      showingTopNav: false,
+      showingSideNav: false
+    };
+    // $scope.mainUi.showingTopNav = false;
+    // $scope.mainUi.showingSideNav = false;
     
     $scope.$on("TopNavShowingChanged",   
       function (event, msg) {

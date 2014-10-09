@@ -23,7 +23,6 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
       var maxIndex = Math.min($scope.pagePerPage * $scope.pagePage, $scope
         .pageTotal)
       $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
-
     };
 
     $scope.$watch('pagePage', function() {
