@@ -28,7 +28,7 @@
     "passport": "latest",
     "passport-local": "latest",
     "bcrypt": "latest",
-    "node-uuid": "~1.4.1",
+    "node-uuid": "~1.4.1"
   },
   "devDependencies": {
     "supervisor": "~0.6.0",
