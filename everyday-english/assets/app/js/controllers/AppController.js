@@ -10,7 +10,7 @@ module.controller('AppController', ['$scope',
         var showing = 'true' === msg;
         if ($scope.showingTopNav !== showing) {
           $scope.showingTopNav = showing;
-          $scope.$broadcast("Ctr1NameChangeFromParrent", msg);
+          $scope.$broadcast("TopNavShowingChanged", msg);
          }
       });  
     
@@ -19,6 +19,7 @@ module.controller('AppController', ['$scope',
         var showing = 'true' === msg;
         if ($scope.showingSideNav !== showing) {
           $scope.showingSideNav = showing;
+          $scope.$broadcast("SideNavShowingChanged", msg);          
         }
       });     
   }
