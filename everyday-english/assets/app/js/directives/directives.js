@@ -1,14 +1,7 @@
 'use strict';
+var module = angular.module('app.directives', []);
 
-var directivesModule = angular.module('app.directives', []);
-
-directivesModule.directive('appVersion', ['version', function (version) {
-    return function (scope, elm, attrs) {
-        elm.text(version);
-    };
-}]);
-
-directivesModule.directive('focusMe', function ($timeout) {
+module.directive('focusMe', function ($timeout) {
     return {
         scope: { trigger: '@focusMe' },
         link: function (scope, element) {

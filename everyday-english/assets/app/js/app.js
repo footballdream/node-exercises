@@ -1,7 +1,5 @@
 'use strict';
-
-// declare app level module which depends on filters, and services
-var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap',
+var module = angular.module('app', ['ngRoute', 'ngCookies', 'ui.router', 'ui.bootstrap',
   'blockUI', 'toaster',
   'app.filters',
   'app.services',
@@ -11,7 +9,7 @@ var appModule = angular.module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap',
   'angularBootstrapNavTree'
 ]);
 
-appModule.config(['$routeProvider',
+module.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.when('/signin', {
       templateUrl: 'app/partials/signin/home.html',
@@ -92,8 +90,7 @@ appModule.config(['$routeProvider',
       controller: 'CategoriesUpdateController'
     });
 
-
-    // 缺省导航到登录
+    // default navigation
     $routeProvider.otherwise({
       redirectTo: '/signin'
     });
