@@ -3,10 +3,11 @@ var module = angular.module('app.directives', []);
 
 module.directive('focusMe', function ($timeout) {
     return {
+        restrict: 'A',
         scope: { trigger: '@focusMe' },
         link: function (scope, element) {
             scope.$watch('trigger', function (value) {
-                if (value === "true") {
+                if ("true" === value) {
                     $timeout(function () {
                         element[0].focus();
                     });
