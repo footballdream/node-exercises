@@ -4,6 +4,8 @@ var module = angular.module('app.controllers');
 module.controller('SentencesController', ['$scope', '$location', 'Sentence',
   'MessageBoxService',
   function($scope, $location, Sentence, MessageBoxService) {
+    $scope.setDataMaintenanceUi();
+
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';

@@ -1,4 +1,4 @@
 'use strict';
-angular.module('app.controllers', ['ngRoute', 'toaster', 'blockUI',
+angular.module('app.controllers', ['toaster', 'blockUI',
   'app.services'
 ]);
