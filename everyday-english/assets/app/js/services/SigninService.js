@@ -2,6 +2,9 @@
 var module = angular.module('app.services');
 module.factory('SigninService', ['$http', 'TokenHandler', function ($http, TokenHandler) {
     var service = {
+        isSignined: function() {
+          return false;
+        },
         signin: function (userName, userPwd) {
             console.log('userName=' + userName + ", password=" + userPwd)
             var url = "/everyday/api/1.0.0/auth/signin"

@@ -1,5 +1,5 @@
 'use strict';
-var module = angular.module('app', ['ngCookies', 'ui.router', 'ui.bootstrap',
+var module = angular.module('app', ['ui.router', 'ui.bootstrap',
   'blockUI', 'toaster',
   'app.filters',
   'app.services',
@@ -12,7 +12,6 @@ var module = angular.module('app', ['ngCookies', 'ui.router', 'ui.bootstrap',
 module.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("blackboard");
-
   $stateProvider
     // blackboard
     .state('blackboard', {
@@ -33,7 +32,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
       controller: 'CategoriesController'
     })
     // new category
-    .state('/newCategory', {
+    .state('newCategory', {
       url: '/categories/new',
       templateUrl: '/app/partials/categories/form.html',
       controller: 'CategoriesNewController'
@@ -51,7 +50,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
       controller: 'WordsController'
     })
     // new word
-    .state('/newWord', {
+    .state('newWord', {
       url: '/words/new',
       templateUrl: '/app/partials/words/form.html',
       controller: 'WordsNewController'
@@ -69,7 +68,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
       controller: 'MeaningsController'
     })
     // new meaning
-    .state('/newMeaning', {
+    .state('newMeaning', {
       url: '/meanings/new',
       templateUrl: '/app/partials/meanings/form.html',
       controller: 'MeaningsNewController'
@@ -87,7 +86,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
       controller: 'SentencesController'
     })
     // new sentence
-    .state('/newSentence', {
+    .state('newSentence', {
       url: '/sentences/new',
       templateUrl: '/app/partials/sentences/form.html',
       controller: 'SentencesNewController'
@@ -99,3 +98,17 @@ module.config(['$stateProvider', '$urlRouterProvider',
       controller: 'SentencesUpdateController'
     });
   }]);
+
+module.run(['$rootScope', '$state', 'SigninService', 
+  function($rootScope, $state, AuthService) {
+    $rootScope.$on('$stateChangeStart', 
+      function(event, toState, toParams, fromState, fromParams) {
+        // 用户未登录，导航到登录视图
+        if (!AuthService.isSignined()) {
+          if (toState.name !== "signin") {
+            event.preventDefault();
+            $state.go('signin');
+          }
+        }
+      });
+}]);
