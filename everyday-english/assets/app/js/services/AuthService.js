@@ -1,6 +1,6 @@
 'use strict';
 var module = angular.module('app.services');
-module.factory('SigninService', ['$http', 'TokenHandler', function ($http, TokenHandler) {
+module.factory('AuthService', ['$http', 'TokenHandler', function ($http, TokenHandler) {
     var service = {
         isSignined: function() {
           return false;

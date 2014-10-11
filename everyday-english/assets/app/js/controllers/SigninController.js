@@ -2,8 +2,8 @@
  module = angular.module('app.controllers');
 
 // Signin Controller
-module.controller('SigninController', ['$scope', '$location', 'SigninService',
-  function($scope, $location, SigninService) {
+module.controller('SigninController', ['$scope', '$location', 'AuthService',
+  function($scope, $location, AuthService) {
     $scope.session = {
       showMessage: false,
       message: ''
@@ -14,7 +14,7 @@ module.controller('SigninController', ['$scope', '$location', 'SigninService',
       $location.path('/sentences');
       
 /*      
-      SigninService.signin($scope.session.username, $scope.session.password).then(
+      AuthService.signin($scope.session.username, $scope.session.password).then(
         function(data) {
           if (201 == data.returnCode) {
             $location.path('/sentences')

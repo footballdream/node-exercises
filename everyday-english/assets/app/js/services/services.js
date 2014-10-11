@@ -1,5 +1,5 @@
 'use strict';
-var module = angular.module('app.services', ['ngResource', 'ngCookies',
+var module = angular.module('app.services', ['ngCookies',
   'restmod'
 ]);
 module.config(function(restmodProvider) {

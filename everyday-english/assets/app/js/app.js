@@ -99,7 +99,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
     });
   }]);
 
-module.run(['$rootScope', '$state', 'SigninService', 
+module.run(['$rootScope', '$state', 'AuthService', 
   function($rootScope, $state, AuthService) {
     $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams) {
