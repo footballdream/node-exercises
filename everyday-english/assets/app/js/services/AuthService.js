@@ -3,11 +3,10 @@ var module = angular.module('app.services');
 module.factory('AuthService', ['$http', 'TokenHandler', function ($http, TokenHandler) {
     var service = {
         isSignined: function() {
-          return false;
+          return true;
         },
         signin: function (userName, userPwd) {
-            console.log('userName=' + userName + ", password=" + userPwd)
-            var url = "/everyday/api/1.0.0/auth/signin"
+            var url = "/api/v1/auth/signin"
             var promise = $http.post(url, { name: userName, password: userPwd}).then(function (response) {
                 var data = {};
                 data = response.data;
@@ -22,7 +21,7 @@ module.factory('AuthService', ['$http', 'TokenHandler', function ($http, TokenHa
             return promise;
         },
         signout: function (token) {
-            var url = "/everyday/api/1.0.0/auth/signout"
+            var url = "/api/v1/auth/signout"
             var promise = $http.get(url, {}).then(function (response) {
                 var sentence = response.data;
                 return sentence;
