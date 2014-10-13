@@ -11,10 +11,6 @@ module.controller('AppController', ['$scope', '$state', 'SessionService', 'AuthS
       userName: SessionService.getUserName()
     };
     
-    
-    // $scope.mainUi.isShowingTopNav = false;
-    // $scope.mainUi.isShowingSideNav = false;
-    
     $scope.setSigninUi = function() {
       $scope.mainUi.isShowingTopNav = false;
       $scope.mainUi.isShowingSideNav = false;
