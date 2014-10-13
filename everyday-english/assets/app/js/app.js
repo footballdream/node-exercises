@@ -97,14 +97,14 @@ module.config(['$stateProvider', '$urlRouterProvider',
       templateUrl: '/app/partials/sentences/form.html',
       controller: 'SentencesUpdateController'
     });
-  }]);
+}]);
 
-module.run(['$rootScope', '$state', 'AuthService', 
-  function($rootScope, $state, AuthService) {
+module.run(['$rootScope', '$state', 'SessionService', 
+  function($rootScope, $state, SessionService) {
     $rootScope.$on('$stateChangeStart', 
       function(event, toState, toParams, fromState, fromParams) {
         // 用户未登录，导航到登录视图
-        if (!AuthService.isSignined()) {
+        if (!SessionService.isSignined()) {
           if (toState.name !== "signin") {
             event.preventDefault();
             $state.go('signin');
@@ -113,69 +113,4 @@ module.run(['$rootScope', '$state', 'AuthService',
       });
 }]);
 
-module.factory('SimpleHttpInterceptor', ['$q', function($q) {
-  var interceptor = {
-    // 成功的请求方法
-    'request': function(config) {
-      console.log('request interceptor');
-      return config; // 或者 $q.when(config);
-    },
-    // 响应成功
-    'response': function(response) {
-      console.log('response interceptor');
-      return response; // 或者 $q.when(config);
-    },
-    // 请求发生了错误，如果能从错误中恢复，可以返回一个新的请求或promise
-    'requestError': function(rejection) {
-      return response; // 或新的promise
-      // 或者，可以通过返回一个rejection来阻止下一步
-      // return $q.reject(rejection);
-    },
-    // 请求发生了错误，如果能从错误中恢复，可以返回一个新的响应或promise
-    'responseError': function(rejection) {
-      return rejection; // 或新的promise
-      // 或者，可以通过返回一个rejection来阻止下一步
-      // return $q.reject(rejection);
-    }
-  };
-  return interceptor;
-}]);
-
-module.config(['$httpProvider', function($httpProvider) {
-    // 在这里构造拦截器
-    var interceptor = function($q, $rootScope, AuthService) {
-        return {
-            'response': function(resp) {
-                if (resp.config.url == '/api/login') {
-                    // 假设API服务器返回的数据格式如下:
-                    // { token: "AUTH_TOKEN" }
-                    AuthService.setToken(resp.data.token);
-                }
-                return resp;
-            },
-            'responseError': function(rejection) {
-                // 错误处理
-                switch(rejection.status) {
-                case 401:
-                    if (rejection.config.url!=='api/login')
-                        // 如果当前不是在登录页面
-                        $rootScope.$broadcast('auth:loginRequired');
-                    break;
-                case 403:
-                    $rootScope.$broadcast('auth:forbidden');
-                    break;
-                case 404:
-                    $rootScope.$broadcast('page:notFound');
-                    break;
-                case 500:
-                    $rootScope.$broadcast('server:error');
-                    break;
-                }
-                return $q.reject(rejection);
-            }
-        };
-    };
-    // 将拦截器和$http的request/response链整合在一起
-    $httpProvider.interceptors.push(interceptor);  
-}]);
 
