@@ -4,6 +4,7 @@ var module = angular.module('app.controllers');
 module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
   'MessageBoxService',
   function($scope, $location, Meaning, MessageBoxService) {
+    $scope.setDataMaintenanceUi();
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';

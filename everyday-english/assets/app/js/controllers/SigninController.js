@@ -15,7 +15,8 @@ module.controller('SigninController', ['$scope', '$state', 'AuthService',
       .then(function(data) {
         var code = AuthService.getSigninCode();
         if (code.SUCCESSFUL === data.code) {
-          $state.go('blackboard')
+          $scope.$emit('UserSignined', data.userName);
+          $state.go('blackboard');
         } else {
           $scope.signinStatus.isShowingMessage = true;
           $scope.signinStatus.message = '用户名或密码错误。';

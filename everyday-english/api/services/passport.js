@@ -68,7 +68,7 @@ passport.use(new LocalStrategy(
               message: 'Invalid Password'
             });
           var returnUser = {
-            username: user.username,
+            name: user.name,
             createdAt: user.createdAt,
             id: user.id
           };

@@ -6,7 +6,7 @@
  */
  
 var passport = require('passport'),
-   uuid = require('node-uuid');
+   uuid = require('node-uuid'), util = require('util');
    
 var RETURN_CODE = {
   SUCCESSFUL: 10001, // 登录成功
@@ -37,6 +37,7 @@ module.exports = {
         return res.send({
           code: RETURN_CODE.SUCCESSFUL,
           message: 'signin successfully',
+          userName: user.name,
           token: token
         });
       });

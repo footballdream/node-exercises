@@ -2,9 +2,9 @@
 var module = angular.module('app.controllers');
 module.controller('CategoriesController', ['$scope', '$location', 'Category',
   'MessageBoxService', 'toaster', 'blockUI', '$timeout',
-
   function($scope, $location, Category, MessageBoxService, toaster, blockUI,
     $timeout) {
+    $scope.setDataMaintenanceUi();
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
     $scope.sortField = 'id';

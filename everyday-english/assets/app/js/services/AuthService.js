@@ -22,6 +22,8 @@ module.factory('AuthService', ['$http', 'SessionService',
                 var data = resp.data;
                 if (SIGNIN_RETURN_CODE.SUCCESSFUL === data.code) {
                   SessionService.setToken(data.token);
+                  console.log('logined userName=' + data.userName);
+                  SessionService.setUserName(data.userName);
                 } else {
                   SessionService.invalidToken();
                 }
