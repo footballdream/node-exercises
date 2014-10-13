@@ -4,15 +4,15 @@
     <h2>登录</h2>
 
     <div class="form-group"
-         ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.username), 'has-success': signinForm.username.$valid}">
-      <input class="form-control" id="inputUserName" name="username" type="text" placeholder="用户名"
-             required focus-me="true" ng-model="session.username"/>
-      <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.username)">请输入用户名。</span>
+         ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.userName), 'has-success': signinForm.userName.$valid}">
+      <input class="form-control" id="inputUserName" name="userName" type="text" placeholder="用户名"
+             required focus-me="true" ng-model="signinStatus.userName"/>
+      <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.userName)">请输入用户名。</span>
     </div>
     <div class="form-group"
          ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.password), 'has-success': signinForm.password.$valid}">
       <input class="form-control" id="inputPassword" name="password" type="password" placeholder="密码"
-             required ng-model="session.password"/>
+             required ng-model="signinStatus.password"/>
       <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.password)">请输入密码。</span>
       <span class="help-block"></span>
     </div>
@@ -21,9 +21,9 @@
         <span>登录</span>
       </button>
     </div>
-    <div class="form-group" ng-show="session.showMessage">
+    <div class="form-group" ng-show="signinStatus.isShowingMessage">
       <div>
-        <p class="text-danger">{{session.message}}</p>
+        <p class="text-danger">{{signinStatus.message}}</p>
       </div>
     </div>
   </form>

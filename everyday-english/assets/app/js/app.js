@@ -105,7 +105,7 @@ module.run(['$rootScope', '$state', 'SessionService',
       function(event, toState, toParams, fromState, fromParams) {
         // 用户未登录，导航到登录视图
         if (!SessionService.isSignined()) {
-          if (toState.name !== "signin") {
+          if (toState.name !== 'signin') {
             event.preventDefault();
             $state.go('signin');
           }

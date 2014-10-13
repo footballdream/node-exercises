@@ -5,31 +5,45 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
  
-var passport = require('passport');
+var passport = require('passport'),
+   uuid = require('node-uuid');
+   
+var RETURN_CODE = {
+  SUCCESSFUL: 10001, // 登录成功
+  USER_OR_PWD_ERROR: 10002, // 登录失败，用户名或密码错误
+  USER_LOCKED: 10003 // 登录失败，用户已被锁定
+};
+
 module.exports = {
 
   login: function(req, res) {
     res.view();
   },
 
-  process: function(req, res) {
+  signin: function(req, res) {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) {
         return res.send({
-          message: 'login failed'
+          code: RETURN_CODE.USER_OR_PWD_ERROR,
+          message: 'signin failed'
         });
         res.send(err);
       }
       req.logIn(user, function(err) {
         if (err) res.send(err);
+        var token = uuid.v4();
+        console.info('user signin successfully, userName=' 
+          + user.name + ', token=' + token + ', from=' + req.ip);
         return res.send({
-          message: 'login successful'
+          code: RETURN_CODE.SUCCESSFUL,
+          message: 'signin successfully',
+          token: token
         });
       });
     })(req, res);
   },
   
-  logout: function(req, res) {
+  signout: function(req, res) {
     req.logout();
     res.send('logout successful');
   }

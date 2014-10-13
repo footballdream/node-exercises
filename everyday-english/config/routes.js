@@ -81,13 +81,13 @@ module.exports.routes = {
     action: 'login'
   },
 
-  'POST /login': {
+  'POST /api/v1/auth/signin': {
     controller: 'AuthController',
-    action: 'process'
+    action: 'signin'
   },
 
-  'GET /logout': {
+  'GET /api/v1/auth/signout': {
     controller: 'AuthController',
-    action: 'logout'
+    action: 'signout'
   }
 };

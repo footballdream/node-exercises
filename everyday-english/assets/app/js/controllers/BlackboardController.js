@@ -3,7 +3,6 @@ var module = angular.module('app.controllers');
 module.controller('BlackboardController', ['$scope', '$location', 'Sentence',
   'MessageBoxService',
   function($scope, $location, Sentence, MessageBoxService) {
-
     $scope.setReadingUi();
 
     $scope.mode = 'reading';

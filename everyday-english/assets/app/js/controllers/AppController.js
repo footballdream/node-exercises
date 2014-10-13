@@ -1,7 +1,7 @@
 'use strict';
 var module = angular.module('app.controllers');
-module.controller('AppController', ['$scope', 
-  function($scope) {
+module.controller('AppController', ['$scope', '$state', 'AuthService', 
+  function($scope, $state, AuthService) {
     $scope.mainUi = {
       isShowingTopNav: false,
       isShowingSideNav: false
@@ -23,6 +23,16 @@ module.controller('AppController', ['$scope',
       $scope.mainUi.isShowingTopNav = false;
       $scope.mainUi.isShowingSideNav = true;
     };    
+    
+    $scope.signout = function() {
+      AuthService.signout();
+      $state.go('signin');
+/*      
+      .then(function(data) {
+        $state.go('signin');
+      });
+      */
+    };
     
     /*    
     $scope.$on("TopNavShowingChanged",   

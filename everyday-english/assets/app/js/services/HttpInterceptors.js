@@ -31,13 +31,12 @@ module.factory('SimpleHttpInterceptor', ['$q', function($q) {
 module.factory('GeneralHttpInterceptor', ['$rootScope', '$q', 'SessionService', 
   function($rootScope, $q, SessionService) {
     var interceptor = {
+      'request': function(config) {
+        console.log('general request interceptor');
+        return config; 
+      },      
       'response': function(resp) {
         console.log('general response interceptor');
-        if (resp.config.url === '/api/v1/auth/signin') {
-          // 假设API服务器返回的数据格式如下:
-          // { token: "AUTH_TOKEN" }
-          SessionService.setToken(resp.data.token);
-        }
         return resp;
       },
       'responseError': function(rejection) {
