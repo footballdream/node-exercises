@@ -25,10 +25,11 @@
     "sails": "~0.10.5",
     "sails-disk": "~0.10.0",
     "sails-mysql": "^0.10.6",
-    "passport": "latest",
-    "passport-local": "latest",
-    "bcrypt": "latest",
-    "node-uuid": "~1.4.1"
+    "passport": "~0.2.1",
+    "passport-local": "~1.0.0",
+    "bcrypt": "~0.8.0",
+    "node-uuid": "~1.4.1",
+    "captchagen": "~1.1.0"
   },
   "devDependencies": {
     "supervisor": "~0.6.0",

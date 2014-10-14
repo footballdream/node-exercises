@@ -7,7 +7,6 @@ var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'blockUI',
   'rcForm',
   'angularBootstrapNavTree'
 ]);
-
 module.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("blackboard");
