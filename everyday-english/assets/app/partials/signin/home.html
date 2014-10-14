@@ -21,9 +21,10 @@
       <img ng-src="{{signinStatus.captchaImgUrl}}" ng-click="reloadCaptchaImg()" alt="6位验证码"><a style="margin-left: 16px" href="" ng-click="reloadCaptchaImg()">看不清楚，换一张</a>
     </div>    
     <div class="form-group" ng-show="signinStatus.isNeedCaptcha"
-         ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.password), 'has-success': signinForm.password.$valid}">
-      <input class="form-control" id="inputPassword" name="password" type="password" placeholder="6位验证码"
-             required ng-model="signinStatus.password"/>
+         ng-class="{'has-error': signinStatus.isNeedCaptcha && rc.signinForm.needsAttention(signinForm.captchaCode), 'has-success': signinStatus.isNeedCaptcha && signinForm.captchaCode.$valid}">
+      <input class="form-control" id="inputCaptcha" name="captchaCode" type="text" placeholder="6位验证码"
+             ng-required='signinStatus.isNeedCaptcha' ng-model="signinStatus.captchaCode"/>
+      <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.captchaCode)">请输入验证码。</span>             
       <span class="help-block"></span>
     </div>
  

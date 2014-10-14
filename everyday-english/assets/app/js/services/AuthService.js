@@ -5,8 +5,9 @@ module.factory('AuthService', ['$http', 'SessionService',
     var URL_SIGNIN =  '/api/v1/auth/signin', URL_SIGNOUT = '/api/v1/auth/signout';
     var SIGNIN_RETURN_CODE = {
       SUCCESSFUL: 10001,
-      USER_OR_PWD_ERROR: 10002, 
-      USER_LOCKED: 10003
+      USER_OR_PWD_ERROR: 10002,
+      CAPTCHA_ERROR: 10003,
+      USER_LOCKED: 10004
     };
     
     var SIGNOUT_RETURN_CODE = {
@@ -16,8 +17,8 @@ module.factory('AuthService', ['$http', 'SessionService',
     
     var service = {
         // 登录
-        signin: function (name, pwd) {
-          var promise = $http.post(URL_SIGNIN, { username: name, password: pwd})
+        signin: function (name, pwd, captchaCode) {
+          var promise = $http.post(URL_SIGNIN, { username: name, password: pwd, captchaCode: captchaCode})
             .then(function (resp) {
                 var data = resp.data;
                 if (SIGNIN_RETURN_CODE.SUCCESSFUL === data.code) {

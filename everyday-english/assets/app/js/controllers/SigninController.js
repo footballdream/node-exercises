@@ -7,15 +7,17 @@ module.controller('SigninController', ['$scope', '$state', 'AuthService', 'block
     $scope.signinStatus = {
       userName: '',
       password: '',
+      captchaCode: '',
       isShowingMessage: false,
       message: '',
-      isNeedCaptcha: true,
-      captchaImgUrl: DEFAULT_CAPTCHA_IMG_URL
+      isNeedCaptcha: false,
+      captchaImgUrl: ''
     }; 
     
     $scope.signin = function() {
       blockUi.start('正在登录……'); 
-      AuthService.signin($scope.signinStatus.userName, $scope.signinStatus.password)
+      AuthService.signin($scope.signinStatus.userName, 
+        $scope.signinStatus.password, $scope.signinStatus.captchaCode)
       .then(function(data) {
         $timeout(function() { 
           blockUi.stop(); 
@@ -24,8 +26,16 @@ module.controller('SigninController', ['$scope', '$state', 'AuthService', 'block
             $scope.$emit('UserSignined', data.userName);
             $state.go('blackboard');
           } else {
+            if (true === data.isNeedCaptcha) {
+              $scope.signinStatus.isNeedCaptcha = true;
+              $scope.reloadCaptchaImg();
+            }
             $scope.signinStatus.isShowingMessage = true;
-            $scope.signinStatus.message = '用户名或密码错误。';
+            if (code.CAPTCHA_ERROR === data.code){
+              $scope.signinStatus.message = '验证码错误。';              
+            } else {
+              $scope.signinStatus.message = '用户名或密码错误。';
+            }
           }             
         }, 800);       
       });
