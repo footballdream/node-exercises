@@ -17,10 +17,10 @@
       <span class="help-block"></span>
     </div>
     
-    <div style="margin-bottom: 4px" class="form-group">
-      <img ng-src="{{'/api/v1/auth/captcha'}}" alt="6位验证码">
+    <div style="margin-bottom: 4px" class="form-group" ng-show="signinStatus.isNeedCaptcha">
+      <img ng-src="{{signinStatus.captchaImgUrl}}" ng-click="reloadCaptchaImg()" alt="6位验证码"><a style="margin-left: 16px" href="" ng-click="reloadCaptchaImg()">看不清楚，换一张</a>
     </div>    
-    <div class="form-group"
+    <div class="form-group" ng-show="signinStatus.isNeedCaptcha"
          ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.password), 'has-success': signinForm.password.$valid}">
       <input class="form-control" id="inputPassword" name="password" type="password" placeholder="6位验证码"
              required ng-model="signinStatus.password"/>

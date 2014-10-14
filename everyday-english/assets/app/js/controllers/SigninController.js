@@ -2,12 +2,15 @@
 module = angular.module('app.controllers');
 module.controller('SigninController', ['$scope', '$state', 'AuthService', 'blockUI', '$timeout',
   function($scope, $state, AuthService, blockUi, $timeout) {
+    var DEFAULT_CAPTCHA_IMG_URL = '/api/v1/auth/captcha';
     $scope.setSigninUi();
     $scope.signinStatus = {
       userName: '',
       password: '',
       isShowingMessage: false,
-      message: ''
+      message: '',
+      isNeedCaptcha: true,
+      captchaImgUrl: DEFAULT_CAPTCHA_IMG_URL
     }; 
     
     $scope.signin = function() {
@@ -27,5 +30,9 @@ module.controller('SigninController', ['$scope', '$state', 'AuthService', 'block
         }, 800);       
       });
       };
+ 
+    $scope.reloadCaptchaImg = function() {
+      $scope.signinStatus.captchaImgUrl = DEFAULT_CAPTCHA_IMG_URL + '?' + (new Date()).getTime();
+      };      
   }
 ]);

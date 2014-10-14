@@ -19,20 +19,20 @@ var RETURN_CODE = {
 /**
  * generate random number with bit num
  * @param  {Number} bitNum the random number's bit num
- * @return {String}        the string of random number's set
+ * @return {String} the string of random number's set
  */
 function randomNumberWithBitNum (bitNum) {
-    var bn, num = "";
-    if (typeof bitNum === undefined) {
-        bn = 6;
-    } else {
-        bn = bitNum;
-    }
+  var bn, num = "";
+  if (typeof bitNum === undefined) {
+    bn = 6;
+  } else {
+    bn = bitNum;
+  }
 
-    for (var i = 0; i < bn; i++) {
-        num += Math.floor(Math.random() * 10);
-    }
-    return num;
+  for (var i = 0; i < bn; i++) {
+    num += Math.floor(Math.random() * 10);
+  }
+  return num;
 };
 
 module.exports = {
@@ -71,7 +71,7 @@ module.exports = {
   },
   
   generateCaptcha: function (req, res) {
-    var captcha  = captchagen.create({ height: 40, width: 180, font: "sans", text: randomNumberWithBitNum(6) });
+    var captcha  = captchagen.create({ height: 60, width: 180, font: "sans", text: randomNumberWithBitNum(6) });
     var captchaCode = captcha.text();
     captcha.generate();
     res.send(captcha.buffer());
