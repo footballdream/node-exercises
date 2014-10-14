@@ -6,12 +6,33 @@
  */
  
 var passport = require('passport'),
-   uuid = require('node-uuid'), util = require('util');
+   uuid = require('node-uuid'), util = require('util'), 
+   captchagen = require('captchagen');
    
 var RETURN_CODE = {
   SUCCESSFUL: 10001, // 登录成功
   USER_OR_PWD_ERROR: 10002, // 登录失败，用户名或密码错误
-  USER_LOCKED: 10003 // 登录失败，用户已被锁定
+  CAPTCHA_ERROR: 10003, // 验证码错
+  USER_LOCKED: 10004 // 登录失败，用户已被锁定
+};
+
+/**
+ * generate random number with bit num
+ * @param  {Number} bitNum the random number's bit num
+ * @return {String}        the string of random number's set
+ */
+function randomNumberWithBitNum (bitNum) {
+    var bn, num = "";
+    if (typeof bitNum === undefined) {
+        bn = 6;
+    } else {
+        bn = bitNum;
+    }
+
+    for (var i = 0; i < bn; i++) {
+        num += Math.floor(Math.random() * 10);
+    }
+    return num;
 };
 
 module.exports = {
@@ -47,6 +68,13 @@ module.exports = {
   signout: function(req, res) {
     req.logout();
     res.send('logout successful');
+  },
+  
+  generateCaptcha: function (req, res) {
+    var captcha  = captchagen.create({ height: 40, width: 180, font: "sans", text: randomNumberWithBitNum(6) });
+    var captchaCode = captcha.text();
+    captcha.generate();
+    res.send(captcha.buffer());
   }
 };
 

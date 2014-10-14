@@ -16,6 +16,17 @@
       <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.password)">请输入密码。</span>
       <span class="help-block"></span>
     </div>
+    
+    <div style="margin-bottom: 4px" class="form-group">
+      <img ng-src="{{'/api/v1/auth/captcha'}}" alt="6位验证码">
+    </div>    
+    <div class="form-group"
+         ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.password), 'has-success': signinForm.password.$valid}">
+      <input class="form-control" id="inputPassword" name="password" type="password" placeholder="6位验证码"
+             required ng-model="signinStatus.password"/>
+      <span class="help-block"></span>
+    </div>
+ 
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-block btn-lg">
         <span>登录</span>

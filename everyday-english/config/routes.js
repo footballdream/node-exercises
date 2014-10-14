@@ -89,5 +89,10 @@ module.exports.routes = {
   'GET /api/v1/auth/signout': {
     controller: 'AuthController',
     action: 'signout'
+  },
+  
+    'GET /api/v1/auth/captcha': {
+    controller: 'AuthController',
+    action: 'generateCaptcha'
   }
 };
