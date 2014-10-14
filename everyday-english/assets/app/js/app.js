@@ -1,6 +1,5 @@
 'use strict';
-var module = angular.module('app', ['ui.router', 'ui.bootstrap',
-  'blockUI', 'toaster',
+var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'blockUI',
   'app.filters',
   'app.services',
   'app.directives',
@@ -105,7 +104,7 @@ module.run(['$rootScope', '$state', 'SessionService',
       function(event, toState, toParams, fromState, fromParams) {
         // 用户未登录，导航到登录视图
         if (!SessionService.isSignined()) {
-          if (toState.name !== 'signin') {
+          if ('signin' !== toState.name) {
             event.preventDefault();
             $state.go('signin');
           }

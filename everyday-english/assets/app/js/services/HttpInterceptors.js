@@ -31,9 +31,13 @@ module.factory('SimpleHttpInterceptor', ['$q', function($q) {
 module.factory('GeneralHttpInterceptor', ['$rootScope', '$q', 'SessionService', 
   function($rootScope, $q, SessionService) {
     var interceptor = {
-      'request': function(config) {
+      'request': function(req) {
         console.log('general request interceptor');
-        return config; 
+        req.params = req.params || {};
+        if (SessionService.isSignined() && !req.params.token) {
+          req.params.token = SessionService.getToken();
+        }
+        return req;
       },      
       'response': function(resp) {
         console.log('general response interceptor');
