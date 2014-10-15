@@ -32,15 +32,14 @@ module.factory('GeneralHttpInterceptor', ['$rootScope', '$q', 'SessionService',
   function($rootScope, $q, SessionService) {
     var interceptor = {
       'request': function(req) {
-        console.log('general request interceptor');
         req.params = req.params || {};
+        // 当已经登录且未设定token参数时，自动附加token参数，
         if (SessionService.isSignined() && !req.params.token) {
           req.params.token = SessionService.getToken();
         }
         return req;
       },      
       'response': function(resp) {
-        console.log('general response interceptor');
         return resp;
       },
       'responseError': function(rejection) {

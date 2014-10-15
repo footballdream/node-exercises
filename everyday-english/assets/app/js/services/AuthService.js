@@ -23,7 +23,6 @@ module.factory('AuthService', ['$http', 'SessionService',
                 var data = resp.data;
                 if (SIGNIN_RETURN_CODE.SUCCESSFUL === data.code) {
                   SessionService.setToken(data.token);
-                  console.log('logined userName=' + data.userName);
                   SessionService.setUserName(data.userName);
                 } else {
                   SessionService.invalidToken();
@@ -39,11 +38,10 @@ module.factory('AuthService', ['$http', 'SessionService',
         // 注销
         signout: function (token) {
           SessionService.invalidToken();
-          return {};
-          var promise = $http.get(URL_SIGNOUT, { token: token})
+          var promise = $http.get(URL_SIGNOUT, {params: {token: token}})
           .then(function (resp) {
-              var data = resp.data;
-              return data;
+            var data = resp.data;
+            return data;
           }, function (resp) {
           });
           return promise;

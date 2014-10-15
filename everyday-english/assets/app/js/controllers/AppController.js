@@ -27,13 +27,10 @@ module.controller('AppController', ['$scope', '$state', 'SessionService', 'AuthS
     };    
     
     $scope.signout = function() {
-      AuthService.signout();
-      $state.go('signin');
-/*      
+      AuthService.signout(SessionService.getToken())
       .then(function(data) {
         $state.go('signin');
-      });
-      */
+      })
     };
     
     $scope.$on("UserSignined",   
@@ -43,7 +40,7 @@ module.controller('AppController', ['$scope', '$state', 'SessionService', 'AuthS
     
     $scope.$on("UserSignouted",   
       function (event, msg) {
-        $scope.session.userName = SessionService.getUserName();
+        // nothing to do
       });     
     
     /*    

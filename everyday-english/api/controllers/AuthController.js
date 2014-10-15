@@ -9,7 +9,7 @@ var passport = require('passport'),
    uuid = require('node-uuid'), util = require('util'), 
    captchagen = require('captchagen');
    
-var RETURN_CODE = {
+var SIGNIN_RETURN_CODE = {
   SUCCESSFUL: 10001, // 登录成功
   USER_OR_PWD_ERROR: 10002, // 登录失败，用户名或密码错误
   CAPTCHA_ERROR: 10003, // 验证码错
@@ -17,6 +17,10 @@ var RETURN_CODE = {
 };
 //不需要验证码登录，最大尝试登录次数
 var MAX_TRY_SIGNIN_WITHOUT_CAPTCHA = 3;
+
+var SIGNOUT_RETURN_CODE = {
+  SUCCESSFUL: 11001, // 注销(退出)成功
+};
 
 /**
  * generate random number with bit num
@@ -49,7 +53,7 @@ module.exports = {
       if (req.session.captchaCode !== req.param('captchaCode'))
       {
         return res.send({
-          code: RETURN_CODE.CAPTCHA_ERROR,
+          code: SIGNIN_RETURN_CODE.CAPTCHA_ERROR,
           message: 'signin failed',
           isNeedCaptcha: true
         });            
@@ -64,7 +68,7 @@ module.exports = {
           req.session.trySignin = 1;
         }
         return res.send({
-          code: RETURN_CODE.USER_OR_PWD_ERROR,
+          code: SIGNIN_RETURN_CODE.USER_OR_PWD_ERROR,
           message: 'signin failed',
           isNeedCaptcha: MAX_TRY_SIGNIN_WITHOUT_CAPTCHA <= req.session.trySignin
         });
@@ -78,7 +82,7 @@ module.exports = {
         delete req.session.trySignin;
         delete req.session.captchaCode;
         return res.send({
-          code: RETURN_CODE.SUCCESSFUL,
+          code: SIGNIN_RETURN_CODE.SUCCESSFUL,
           message: 'signin successfully',
           userName: user.name,
           token: token
@@ -88,12 +92,22 @@ module.exports = {
   },
   
   signout: function(req, res) {
+    var token = req.param('token');
     req.logout();
-    res.send('logout successful');
+    console.info('user signout successfully, userName=unknow' 
+      + ', token=' + token + ', from=' + req.ip);        
+    res.send({
+      code: SIGNOUT_RETURN_CODE.SUCCESSFUL,
+      message: 'signout successfully'
+    });
   },
   
   generateCaptcha: function (req, res) {
-    var captcha  = captchagen.create({ height: 60, width: 180, font: "sans", text: randomNumberWithBitNum(6) });
+    var captcha  = captchagen.create({ 
+      height: 60, 
+      width: 180, 
+      font: "sans", 
+      text: randomNumberWithBitNum(6) });
     var captchaCode = captcha.text();
     req.session.captchaCode = captchaCode;
     captcha.generate();
