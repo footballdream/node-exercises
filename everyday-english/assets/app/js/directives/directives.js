@@ -1,10 +1,19 @@
 'use strict';
 var module = angular.module('app.directives', []);
 
-module.directive('focusMe', function ($timeout) {
+// 简单页脚
+module.directive('xmsgerNgPageSimpleFooter', [function () {
   return {
     restrict: 'A',
-    scope: { trigger: '@focusMe' },
+    replace: true,
+    templateUrl:  '/app/partials/footer.html'
+  };
+}]);
+
+module.directive('xmsgerNgFocusMe', ['$timeout', function ($timeout) {
+  return {
+    restrict: 'A',
+    scope: { trigger: '@xmsgerNgFocusMe' }, // 拥有隔离作用域，作用域中的trigger与指令tree-ng-focus-me的值绑定
     link: function (scope, element) {
       scope.$watch('trigger', function (value) {
         if ("true" === value) {
@@ -15,7 +24,7 @@ module.directive('focusMe', function ($timeout) {
       });
     }
   };
-});
+}]);
 
 // define custom submit directive
 var rcSubmitDirective = {

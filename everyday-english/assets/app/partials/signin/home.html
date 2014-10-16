@@ -6,7 +6,7 @@
     <div class="form-group"
          ng-class="{'has-error': rc.signinForm.needsAttention(signinForm.userName), 'has-success': signinForm.userName.$valid}">
       <input class="form-control" id="inputUserName" name="userName" type="text" placeholder="用户名"
-             required focus-me="true" ng-model="signinStatus.userName"/>
+             required xmsger-ng-focus-me="true" ng-model="signinStatus.userName"/>
       <span class="help-block" ng-show="rc.signinForm.needsAttention(signinForm.userName)">请输入用户名。</span>
     </div>
     <div class="form-group"
