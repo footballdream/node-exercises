@@ -7,6 +7,11 @@ var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'blockUI',
   'rcForm',
   'angularBootstrapNavTree'
 ]);
+module.config(['blockUIConfig', function(blockUIConfig) {
+  blockUIConfig.message = '请等待……';
+  blockUIConfig.delay = 100;
+  // blockUIConfig.autoInjectBodyBlock = false;  
+}]);
 module.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("blackboard");
