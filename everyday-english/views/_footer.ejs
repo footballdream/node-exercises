@@ -1,14 +1,4 @@
-<!-- 
-<div id="footer">
-  <div class="container">
-    <p class="text-center text-muted">
-      <a href="#"><%= i18n('app.name.display') + ' ' + i18n('app.version.display') %></a>
-      <span class="separator"> | </span><%= copyrightNote %>
-      <a href="<%= i18n('app.vendor.url')%>" target="_blank"><%= i18n('app.vendor.name.display')%></a>
-    </p>
-  </div>
-</div>
--->
+<div ng-include src="'/app/partials/footer.html'"></div>
 <script src="/lib/underscore/underscore.js"></script>
 <script src="/lib/jquery/dist/jquery.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -53,3 +43,4 @@
 <script src="/app/js/controllers/SentencesNewController.js"></script>
 <script src="/app/js/controllers/SentencesUpdateController.js"></script>
 <script src="/app/js/app.js"></script>
+

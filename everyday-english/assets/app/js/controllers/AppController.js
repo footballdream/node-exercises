@@ -2,6 +2,14 @@
 var module = angular.module('app.controllers');
 module.controller('AppController', ['$scope', '$state', 'SessionService', 'AuthService', 
   function($scope, $state, SessionService, AuthService) {
+    $scope.appInfo = {
+      displayName: '天天英语',
+      displayVersion: 'V0.0.1-SNAPSHOT',
+      copyrightNote: (new Date()).getFullYear(),
+      displayVendorName: 'XXXX科技',
+      vendorUrl: 'http://www.baidu.com'      
+    };
+    
     $scope.mainUi = {
       isShowingTopNav: false,
       isShowingSideNav: false

@@ -1,15 +1,6 @@
 'use strict';
 var module = angular.module('app.directives', []);
 
-// 简单页脚
-module.directive('xmsgerNgPageSimpleFooter', [function () {
-  return {
-    restrict: 'A',
-    replace: true,
-    templateUrl:  '/app/partials/footer.html'
-  };
-}]);
-
 module.directive('xmsgerNgFocusMe', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
