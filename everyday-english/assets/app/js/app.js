@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'blockUI',
   'app.filters',
   'app.services',
@@ -114,6 +114,7 @@ module.run(['$rootScope', '$state', 'SessionService',
           }
         }
       });
+    $state.go('blackboard');
 }]);
 
 
