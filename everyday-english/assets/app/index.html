@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AppController">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Everyday English is a wonderful website!">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="/lib/bootswatch/spacelab/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/angular-bootstrap-nav-tree/dist/abn_tree.css">
+    <link rel="stylesheet" href="/lib/AngularJS-Toaster/toaster.css">
+    <link rel="stylesheet" href="/lib/angular-block-ui/dist/angular-block-ui.min.css">
+    <link rel="stylesheet" href="/app/css/sidebar.css">
+    <link rel="stylesheet" href="/app/css/app.css">
+  
+    <title ng-bind="appInfo.displayName"></title>
+  </head>
+  <body style="position: initial;"> 
+    <div ng-include src="'/app/topnav.html'">
+    </div>
+    <div ng-include src="'/app/sidenav.html'">
+    </div>    
+    <div ng-class="{'container-fluid': mainUi.isShowingSideNav, 'container': !mainUi.isShowingSideNav}" 
+      ui-view>
+    </div>
+    <div ng-include src="'/app/footer.html'"></div>
+    <toaster-container></toaster-container>
+    <script src="/lib/underscore/underscore.js"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/lib/angular-restmod/dist/angular-restmod-bundle.min.js"></script>
+    <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/lib/angular-bootstrap-nav-tree/dist/abn_tree_directive.js"></script>
+    <script src="/lib/angular-animate/angular-animate.min.js"></script>
+    <script src="/lib/AngularJS-Toaster/toaster.js"></script>
+    <script src="/lib/angular-block-ui/dist/angular-block-ui.min.js"></script>
+    <script src="/app/js/services/services.js"></script>
+    <script src="/app/js/services/SessionService.js"></script>
+    <script src="/app/js/services/paged.js"></script>
+    <script src="/app/js/services/MessageBoxService.js"></script>
+    <script src="/app/js/services/TokenHandler.js"></script>
+    <script src="/app/js/services/AuthService.js"></script>
+    <script src="/app/js/services/HttpInterceptors.js"></script>
+    <script src="/app/js/services/SentencesRest.js"></script>
+    <script src="/app/js/services/Sentence.js"></script>
+    <script src="/app/js/services/CategoriesRest.js"></script>
+    <script src="/app/js/services/CategoriesTreeService.js"></script>
+    <script src="/app/js/services/Category.js"></script>
+    <script src="/app/js/services/Word.js"></script>
+    <script src="/app/js/services/Meaning.js"></script>
+    <script src="/app/js/directives/directives.js"></script>
+    <script src="/app/js/filters/filters.js"></script>
+    <script src="/app/js/controllers/controllers.js"></script>
+    <script src="/app/js/controllers/AppController.js"></script>
+    <script src="/app/js/controllers/SigninController.js"></script>
+    <script src="/app/js/controllers/BlackboardController.js"></script>
+    <script src="/app/js/controllers/CategoriesController.js"></script>
+    <script src="/app/js/controllers/CategoriesNewController.js"></script>
+    <script src="/app/js/controllers/CategoriesUpdateController.js"></script>
+    <script src="/app/js/controllers/WordsController.js"></script>
+    <script src="/app/js/controllers/WordsNewController.js"></script>
+    <script src="/app/js/controllers/WordsUpdateController.js"></script>
+    <script src="/app/js/controllers/MeaningsController.js"></script>
+    <script src="/app/js/controllers/MeaningsNewController.js"></script>
+    <script src="/app/js/controllers/MeaningsUpdateController.js"></script>
+    <script src="/app/js/controllers/SentencesController.js"></script>
+    <script src="/app/js/controllers/SentencesNewController.js"></script>
+    <script src="/app/js/controllers/SentencesUpdateController.js"></script>
+    <script src="/app/js/app.js"></script>
+    
+  </body>
+</html>

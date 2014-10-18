@@ -1,0 +1,86 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-show="mainUi.isShowingTopNav">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="">天天英语</a>
+    </div>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="blackboard"><i class="fa fa-book fa-lg"></i> 去学习</a></li>
+
+        <li>
+          <a href="">
+            <i class="fa fa-windows fa-lg"></i> 数据视图<b class="caret"></b>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+            <i class="fa fa-database fa-lg"></i> 数据维护<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="categories">目录</a></li>
+            <li><a ui-sref="words">单词</a></li>
+            <li><a ui-sref="meanings">意义</a></li>
+            <li><a ui-sref="sentences">句子</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+            <i class="fa fa-gears fa-lg"></i> 系统<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="x">用户管理</a></li>
+            <li class="divider"></li>
+            <li><a href="#">平台管理</a></li>
+            <li class="divider"></li>
+            <li><a href="log_system">系统日志</a></li>
+            <li><a href="#/log_security">安全日志</a></li>
+            <li><a href="#/log_terminal">操作日志</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+            <i class="fa fa-question-circle fa-lg"></i> 帮助<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#/about">关于</a></li>
+            <li class="divider"></li>
+            <li><a href="#">操作指南</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+            <i class="fa fa-globe fa-lg"></i> 简体中文<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">简体中文</a></li>
+            <li><a href="#">繁體中文</a></li>
+            <li><a href="#">English</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" data-target="#">
+            <i class="fa fa-user fa-lg"></i> {{session.userName}}<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">用户信息</a></li>
+            <li><a href="#">修改密码</a></li>
+            <li class="divider"></li>
+            <li><a href="" ng-click="signout()">退出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

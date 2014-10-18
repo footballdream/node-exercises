@@ -32,10 +32,10 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  'GET /app': {
-    controller: 'HomeSpaController',
-    action: 'home'
-  },
+  // 'GET /app': {
+    // controller: 'HomeSpaController',
+    // action: 'home'
+  // },
 
   /***************************************************************************
    *                                                                          *
