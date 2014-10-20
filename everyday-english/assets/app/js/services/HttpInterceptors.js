@@ -32,10 +32,15 @@ module.factory('GeneralHttpInterceptor', ['$rootScope', '$q', 'SessionService',
   function($rootScope, $q, SessionService) {
     var interceptor = {
       'request': function(req) {
-        req.params = req.params || {};
-        // 当已经登录且未设定token参数时，自动附加token参数，
-        if (SessionService.isSignined() && !req.params.token) {
-          req.params.token = SessionService.getToken();
+        console.log(req.url);
+        if ('template/pagination/pagination.html' !== req.url
+          && 'template/modal/backdrop.html' !== req.url
+          && 'template/modal/window.html' !== req.url) {
+          req.params = req.params || {};
+          // 当已经登录且未设定token参数时，自动附加token参数，
+          if (SessionService.isSignined() && !req.params.token) {
+            req.params.token = SessionService.getToken();
+          }
         }
         return req;
       },      

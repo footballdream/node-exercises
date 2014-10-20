@@ -5,7 +5,7 @@ module.service('MessageBoxService', ['$modal', function ($modal) {
         backdrop: true,
         keyboard: true,
         modalFade: true,
-        templateUrl: 'app/partials/messagebox.html'
+        templateUrl: '/app/partials/messagebox.html'
     };
 
     var modalOptions = {

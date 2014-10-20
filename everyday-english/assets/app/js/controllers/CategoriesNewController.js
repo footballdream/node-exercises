@@ -1,8 +1,8 @@
 'use strict';
 var module = angular.module('app.controllers');
 // 目录控制器-创建
-module.controller('CategoriesNewController', ['$scope', '$location', 'CategoriesRest', 'Category', 'CategoriesTreeService',
-    function ($scope, $location, CategoriesRest, Category, CategoriesTreeService) {
+module.controller('CategoriesNewController', ['$scope', '$state', 'CategoriesRest', 'Category', 'CategoriesTreeService',
+    function ($scope,  $state, CategoriesRest, Category, CategoriesTreeService) {
         $scope.category = {};
         $scope.manipulationName = '新建';
         $scope.selectedParent = {};
@@ -42,12 +42,11 @@ module.controller('CategoriesNewController', ['$scope', '$location', 'Categories
 
         $scope.save = function () {
             Category.$create($scope.category);
-            $location.path('/categories')
+            $state.go('categories')
         };
 
         $scope.cancel = function () {
-            $location.path('/categories');
+            $state.go('categories');
         };
-
 
     }]);
