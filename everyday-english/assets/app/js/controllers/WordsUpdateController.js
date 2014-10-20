@@ -1,21 +1,21 @@
 'use strict';
 var module = angular.module('app.controllers');
-module.controller('WordsUpdateController', ['$scope', '$location',
-  '$routeParams', 'Word',
-  function($scope, $location, $routeParams, Word) {
+module.controller('WordsUpdateController', ['$scope', '$state',
+  '$stateParams', 'Word',
+  function($scope, $state, $stateParams, Word) {
     $scope.manipulationName = '修改';
 
-    Word.$find($routeParams.id).$then(function(object) {
+    Word.$find($stateParams.id).$then(function(object) {
       $scope.object = object;
     });
 
     $scope.save = function() {
       $scope.object.$save();
-      $location.path('/words')
+      $state.go('words')
     };
 
     $scope.cancel = function() {
-      $location.path('/words');
+      $state.go('words');
     };
   }
 ]);
