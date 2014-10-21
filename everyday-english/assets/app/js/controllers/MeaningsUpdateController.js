@@ -10,8 +10,9 @@ module.controller('MeaningsUpdateController', ['$scope', '$state',
     });
 
     $scope.save = function() {
-      $scope.object.$save();
-      $state.go('meanings')
+      $scope.object.$save().$then(function() {
+        $state.go('meanings')
+      });
     };
 
     $scope.cancel = function() {

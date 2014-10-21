@@ -38,7 +38,7 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
         $scope.updatePageInfo();
         $timeout(function() {
           blockUI.stop();
-        }, 500);
+        }, 200);
       });      
     };
 

@@ -2,8 +2,9 @@
 var module = angular.module('app.controllers');
 // word控制器
 module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
-  'MessageBoxService',
-  function($scope, $location, Meaning, MessageBoxService) {
+  'MessageBoxService', 'toaster', 'blockUI', '$timeout',
+  function($scope, $location, Meaning, MessageBoxService, toaster, blockUI,
+    $timeout) {
     $scope.setDataMaintenanceUi();
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
@@ -118,7 +119,8 @@ module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
 
     };
 
-    $scope.$watch('pagePage', function() {
+    function refresh() {
+      blockUI.start();
       var options = {
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
@@ -128,13 +130,24 @@ module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
         $scope.pageTotalPages = objects.$pageTotalPages;
         $scope.filteredObjects = objects;
         $scope.updatePageInfo();
-      })
+        $timeout(function() {
+          blockUI.stop();
+        }, 200);
+      });
+    }
+    
+    $scope.$watch('pagePage', function() {
+      refresh();
     });
 
     $scope.showNew = function() {
       $location.path('/meanings/new');
     };
 
+    $scope.refresh = function() {
+      $scope.pagePage = 1;
+      refresh();
+    }
 
     $scope.showUpdate = function(id) {
       $location.path('/meanings/' + id);
@@ -150,8 +163,10 @@ module.controller('MeaningsController', ['$scope', '$location', 'Meaning',
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
         Meaning.$find(id).$then(function(object) {
-          object.$destroy();
-          $scope.pagePage = 1;
+          object.$destroy().$then(function() {
+            toaster.pop('success', "", "删除成功");              
+            refresh();
+          });
         })
       });
     };

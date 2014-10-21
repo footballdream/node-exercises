@@ -6,8 +6,9 @@ module.controller('SentencesNewController', ['$scope', '$state', 'Sentence',
     $scope.manipulationName = '新建';
 
     $scope.save = function() {
-      Sentence.$create($scope.sentence);
-      $state.go('sentences')
+      Sentence.$create($scope.sentence).$then(function() {
+        $state.go('sentences')
+      });
     };
 
     $scope.cancel = function() {

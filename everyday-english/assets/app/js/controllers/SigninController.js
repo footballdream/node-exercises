@@ -37,7 +37,7 @@ module.controller('SigninController', ['$scope', '$state', 'AuthService', 'block
               $scope.signinStatus.message = '用户名或密码错误。';
             }
           }             
-        }, 800);       
+        }, 500);       
       });
       };
  

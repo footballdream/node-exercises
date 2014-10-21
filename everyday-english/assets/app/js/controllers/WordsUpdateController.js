@@ -10,8 +10,9 @@ module.controller('WordsUpdateController', ['$scope', '$state',
     });
 
     $scope.save = function() {
-      $scope.object.$save();
-      $state.go('words')
+      $scope.object.$save().$then(function() {
+        $state.go('words');
+      });
     };
 
     $scope.cancel = function() {

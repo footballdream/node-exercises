@@ -10,8 +10,9 @@ module.controller('SentencesUpdateController', ['$scope', '$state',
     });
 
     $scope.save = function() {
-      $scope.sentence.$save();
-      $state.go('sentences')
+      $scope.sentence.$save().$then(function() {
+        $state.go('sentences');
+      });
     };
 
     $scope.cancel = function() {

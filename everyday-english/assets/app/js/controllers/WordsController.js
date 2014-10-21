@@ -2,8 +2,9 @@
 var module = angular.module('app.controllers');
 // word控制器
 module.controller('WordsController', ['$scope', '$location', 'Word',
-  'MessageBoxService',
-  function($scope, $location, Word, MessageBoxService) {
+  'MessageBoxService', 'toaster', 'blockUI', '$timeout',
+  function($scope, $location, Word, MessageBoxService, toaster, blockUI,
+    $timeout) {
     $scope.setDataMaintenanceUi();
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
@@ -115,20 +116,32 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
       var maxIndex = Math.min($scope.pagePerPage * $scope.pagePage, $scope
         .pageTotal)
       $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
-
     };
-
-    $scope.$watch('pagePage', function() {
+    
+    function refresh() {
       var options = {
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
       };
       Word.$search(options).$then(function(objects) {
+        blockUI.start();
         $scope.pageTotal = objects.$pageTotal;
         $scope.pageTotalPages = objects.$pageTotalPages;
         $scope.filteredObjects = objects;
         $scope.updatePageInfo();
-      })
+        $timeout(function() {
+          blockUI.stop();
+        }, 200);        
+      });      
+    }
+
+    $scope.refresh = function() {
+      $scope.pagePage = 1;
+      refresh();
+    }
+    
+    $scope.$watch('pagePage', function() {
+      refresh();
     });
 
     $scope.showNew = function() {
@@ -150,8 +163,10 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
         Word.$find(id).$then(function(object) {
-          object.$destroy();
-          $scope.pagePage = 1;
+          object.$destroy().$then(function() {
+            toaster.pop('success', "", "删除成功");
+            refresh();
+          });
         })
       });
     };

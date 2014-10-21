@@ -2,8 +2,9 @@
 var module = angular.module('app.controllers');
 // sentence控制器
 module.controller('SentencesController', ['$scope', '$location', 'Sentence',
-  'MessageBoxService',
-  function($scope, $location, Sentence, MessageBoxService) {
+  'MessageBoxService', 'toaster', 'blockUI', '$timeout',
+  function($scope, $location, Sentence, MessageBoxService, toaster, blockUI,
+    $timeout) {
     $scope.setDataMaintenanceUi();
 
     $scope.pagesCurrent = 1;
@@ -118,8 +119,9 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
       $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
 
     };
-
-    $scope.$watch('pagePage', function() {
+    
+    function refresh() {
+      blockUI.start();
       var options = {
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
@@ -129,14 +131,25 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
         $scope.pageTotalPages = sentences.$pageTotalPages;
         $scope.filteredSentences = sentences;
         $scope.updatePageInfo();
-      })
+        $timeout(function() {
+          blockUI.stop();
+        }, 200);
+      });
+    }
+
+    $scope.$watch('pagePage', function() {
+      refresh();
     });
 
     $scope.showNew = function() {
       $location.path('/sentences/new');
     };
 
-
+    $scope.refresh = function() {
+      $scope.pagePage = 1;
+      refresh();        
+    };
+    
     $scope.showUpdate = function(id) {
       $location.path('/sentences/' + id);
     };
@@ -151,8 +164,10 @@ module.controller('SentencesController', ['$scope', '$location', 'Sentence',
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
         Sentence.$find(id).$then(function(sentence) {
-          sentence.$destroy();
-          $scope.pagePage = 1;
+          sentence.$destroy().$then(function() {
+            toaster.pop('success', "", "删除成功");              
+            refresh();
+          });
         })
       });
     };

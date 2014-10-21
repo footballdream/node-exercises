@@ -6,8 +6,9 @@ module.controller('MeaningsNewController', ['$scope', '$state', 'Meaning',
     $scope.manipulationName = '新建';
 
     $scope.save = function() {
-      Meaning.$create($scope.object);
-      $state.go('meanings')
+      Meaning.$create($scope.object).$then(function() {
+        $state.go('meanings')
+      });
     };
 
     $scope.cancel = function() {
