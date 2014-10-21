@@ -37,16 +37,15 @@ module.controller('CategoriesNewController', ['$scope', '$state', 'CategoriesRes
                 CategoriesTreeService.showModal({}, modalOptions).then(function (result) {
                 });
             });
-
         };
 
         $scope.save = function () {
-            Category.$create($scope.category);
+          Category.$create($scope.category).$then(function(){
             $state.go('categories')
+          });
         };
 
         $scope.cancel = function () {
-            $state.go('categories');
+          $state.go('categories');
         };
-
     }]);

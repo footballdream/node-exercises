@@ -15,8 +15,9 @@ module.controller('CategoriesUpdateController', ['$scope', '$state', '$statePara
         }
 
         $scope.save = function () {
-          $scope.category.$save();            
-          $state.go('categories')
+          $scope.category.$save().$then(function(){
+            $state.go('categories')
+          });            
         };
 
         $scope.cancel = function () {

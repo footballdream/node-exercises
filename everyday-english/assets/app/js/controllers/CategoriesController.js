@@ -24,8 +24,8 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
         .pageTotal)
       $scope.pageInfo = "显示" + minIndex + "到" + maxIndex + "，共" + $scope.pageTotal
     };
-
-    $scope.$watch('pagePage', function() {
+    
+    function refresh() {
       var options = {
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
         limit: $scope.pagePerPage
@@ -39,7 +39,11 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
         $timeout(function() {
           blockUI.stop();
         }, 500);
-      })
+      });      
+    };
+
+    $scope.$watch('pagePage', function() {
+      refresh();
     });
 
     $scope.showNew = function() {
@@ -47,8 +51,8 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
     };
 
     $scope.refresh = function() {
-      console.log(toaster);
-      toaster.pop('success', "title", "text");
+      $scope.pagePage = 1;
+      refresh();
     }
 
     $scope.showUpdate = function(id) {
@@ -65,8 +69,10 @@ module.controller('CategoriesController', ['$scope', '$location', 'Category',
 
       MessageBoxService.showModal({}, modalOptions).then(function(result) {
         Category.$find(id).$then(function(Category) {
-          Category.$destroy();
-          $scope.pagePage = 1;
+          Category.$destroy().$then(function(){
+            toaster.pop('success', "", "删除成功");
+            refresh();
+          });
         })
       });
     };

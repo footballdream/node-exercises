@@ -72,7 +72,7 @@ module.factory('GeneralHttpInterceptor', ['$rootScope', '$q', 'SessionService',
 }]);
 
 module.config(['$httpProvider', function($httpProvider) {
-  $httpProvider.interceptors.push('SimpleHttpInterceptor');  
+  // $httpProvider.interceptors.push('SimpleHttpInterceptor');  
   $httpProvider.interceptors.push('GeneralHttpInterceptor');  
 }]);
 
