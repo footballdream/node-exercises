@@ -6,9 +6,9 @@
  */
 
 module.exports = {
-    
+
     /**
-[{"label":"赖世雄经典语法","id":10001,"parent_id":null,"name":"赖世雄经典语法","description":null,"children":[{"label":"第一章","id":10002,"parent_id":10001,"name":"第一章","description":null,"children":[{"label":"第一节","id":10003,"parent_id":10002,"name":"第一节","description":null,"children":[]}]}]}]    
+[{"label":"赖世雄经典语法","id":10001,"parent_id":null,"name":"赖世雄经典语法","description":null,"children":[{"label":"第一章","id":10002,"parent_id":10001,"name":"第一章","description":null,"children":[{"label":"第一节","id":10003,"parent_id":10002,"name":"第一节","description":null,"children":[]}]}]}]
     **/
 
   asTree: function(req, res, next) {
@@ -22,7 +22,7 @@ module.exports = {
       }
       res.json(buildTree(objects));
     });
-    
+
     function buildTree(objects) {
       if (undefined == objects || 0 == objects.length) {
         return [];
@@ -33,7 +33,7 @@ module.exports = {
         delete node.createdAt;
         delete node.updatedAt;
         node.parentId = node.getParentId();
-        node.label = node.name;        
+        node.label = node.name;
         node.children = [];
         map[node.id] = i; // use map to look-up the parents
         if (undefined !== node.parentId) {
@@ -41,11 +41,11 @@ module.exports = {
         } else {
           roots.push(node);
         }
-      }      
+      }
       return roots;
-    }    
+    }
   },
-  
+
   // a FIND ONE action
   findOne: function(req, res, next) {
     var id = req.param('id');
@@ -137,17 +137,39 @@ module.exports = {
     }
   },
 
-  /*
+
     // a CREATE action
     create: function(req, res, next) {
         var params = req.params.all();
-        Category.create(params, function(err, Category) {
+        var parentId = req.param('parent_id')
+        if(parentId) {
+          Category.findOne(parentId, function(err, category) {
+            if (undefined === category) {
+              return res.notFound();
+            }
+            if (err) {
+              return next(err);
+            }
+            if (category.ancestry) {
+              params.ancestry = category.ancestry + '/' + category.id;
+            }else {
+              params.ancestry = category.id;
+            }
+            Category.create(params, function(err, created) {
+                if (err) return next(err);
+                res.status(201);
+                res.json(created);
+            });
+        });
+        } else {
+          Category.create(params, function(err, Category) {
             if (err) return next(err);
             res.status(201);
             res.json(Category);
-        });
+          });
+        }
     },
-
+/*
 
 
     // an UPDATE action
