@@ -10,7 +10,8 @@ var module = angular.module('app', ['ui.router', 'ui.bootstrap', 'blockUI',
 module.config(['blockUIConfig', function(blockUIConfig) {
   blockUIConfig.message = '请等待……';
   blockUIConfig.delay = 100;
-  // blockUIConfig.autoInjectBodyBlock = false;  
+  // blockUIConfig.autoInjectBodyBlock = false;
+  blockUIConfig.autoBlock = false;  
 }]);
 module.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
@@ -102,9 +103,9 @@ module.config(['$stateProvider', '$urlRouterProvider',
     });
 }]);
 
-module.run(['$rootScope', '$state', 'SessionService', 
+module.run(['$rootScope', '$state', 'SessionService',
   function($rootScope, $state, SessionService) {
-    $rootScope.$on('$stateChangeStart', 
+    $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams) {
         // 用户未登录，导航到登录视图
         if (!SessionService.isSignined()) {
@@ -116,5 +117,3 @@ module.run(['$rootScope', '$state', 'SessionService',
       });
     $state.go('blackboard');
 }]);
-
-
