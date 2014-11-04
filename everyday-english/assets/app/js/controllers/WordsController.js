@@ -2,9 +2,9 @@
 var module = angular.module('app.controllers');
 // word控制器
 module.controller('WordsController', ['$scope', '$location', 'Word',
-  'MessageBoxService', 'toaster', 'blockUI', '$timeout',
+  'MessageBoxService', 'toaster', 'blockUI', '$timeout',  'CategoriesTreeService', 'CategoriesRest',
   function($scope, $location, Word, MessageBoxService, toaster, blockUI,
-    $timeout) {
+    $timeout, CategoriesTreeService, CategoriesRest) {
     $scope.setDataMaintenanceUi();
     $scope.pagesCurrent = 1;
     $scope.pagesTotalPages = 1;
@@ -101,7 +101,41 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
     }
 
     $scope.refresh()
-    */
+    */    
+        $scope.selectedParent = {};
+        $scope.category = {};
+
+        $scope.showSelectionDlg = function (id) {
+            var my_tree_handler, my_tree, my_treedata, onSelectionCategoryOk;
+            my_tree_handler = function (branch) {
+                // 响应树节点选中
+                $scope.selectedParent.id = branch.id;
+                $scope.selectedParent.name = branch.label;
+                console.log($scope.selectedParent);
+            };
+            onSelectionCategoryOk = function() {
+                console.log("call parentName");
+                 $scope.category.parentId= $scope.selectedParent.id;
+                 $scope.category.parentName= $scope.selectedParent.name;
+            };
+            CategoriesRest.tree().then(function (categoryTree) {
+                my_treedata = categoryTree;
+                console.log(my_treedata);
+                my_tree = {};
+
+                var modalOptions = {
+                    closeButtonText: '取消',
+                    actionButtonText: '确定',
+                    headerText: '选择上级目录',
+                    data: my_treedata,
+                    tree_handler: my_tree_handler,
+                    ok: onSelectionCategoryOk
+                };
+
+                CategoriesTreeService.showModal({}, modalOptions).then(function (result) {
+                });
+            });
+        };
 
     $scope.filteredObjects = [];
     $scope.pageMaxShowing = 5;
