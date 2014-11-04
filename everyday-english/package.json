@@ -38,7 +38,8 @@
     "mocha": "~1.21.4"
   },
   "scripts": {
-    "start": "supervisor -i .tmp,.git,assets,views app.js",
+    "start": "node app.js",
+    "dev-start": "supervisor -i .tmp,.git,assets,views app.js",
     "debug": "node debug app.js"
   },
   "main": "app.js",
