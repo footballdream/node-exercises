@@ -9,7 +9,7 @@ module.exports = {
   // a FIND ONE action
   findOne: function(req, res, next) {
     var id = req.param('id');
-    Word.findOne(id, function(err, object) {
+    Word.findOne().where({ id: id }).populate('category').exec(function(err, object) {
       if (undefined === object) {
         return res.notFound();
       }

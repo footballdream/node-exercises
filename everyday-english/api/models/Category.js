@@ -22,11 +22,11 @@ module.exports = {
       type: 'string',
       maxLength: 255
     },
-    /*
-    children: {
-      collection: 'category',
-      via: 'wishlistedBy'
-    },*/
+    
+    words:{
+      collection: 'Word',
+      via: 'category'
+    }, 
     
     getParentId: function () {
       if (undefined == this.ancestry) {

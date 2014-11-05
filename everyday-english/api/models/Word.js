@@ -19,6 +19,10 @@ attributes: {
       maxLength: 512
     },
     
+    category: {
+      model: 'Category'
+    },
+        
     toJSON: function() {
       var obj = this.toObject();
       delete obj.createdAt;

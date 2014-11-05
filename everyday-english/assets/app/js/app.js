@@ -105,6 +105,7 @@ module.config(['$stateProvider', '$urlRouterProvider',
 
 module.run(['$rootScope', '$state', 'SessionService',
   function($rootScope, $state, SessionService) {
+    /*
     $rootScope.$on('$stateChangeStart',
       function(event, toState, toParams, fromState, fromParams) {
         // 用户未登录，导航到登录视图
@@ -116,4 +117,5 @@ module.run(['$rootScope', '$state', 'SessionService',
         }
       });
     $state.go('blackboard');
+    */
 }]);
