@@ -114,9 +114,9 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
                 console.log($scope.selectedParent);
             };
             onSelectionCategoryOk = function() {
-                console.log("call parentName");
-                 $scope.category.parentId= $scope.selectedParent.id;
-                 $scope.category.parentName= $scope.selectedParent.name;
+              $scope.category.id = $scope.selectedParent.id;
+              $scope.category.name= $scope.selectedParent.name;
+              $scope.refresh();              
             };
             CategoriesRest.tree().then(function (categoryTree) {
                 my_treedata = categoryTree;
@@ -153,9 +153,14 @@ module.controller('WordsController', ['$scope', '$location', 'Word',
     };
     
     function refresh() {
+      var where = undefined;
+      if ($scope.category.id) {
+        where = {category: $scope.category.id};
+      }
       var options = {
         skip: (($scope.pagePage - 1) * $scope.pagePerPage),
-        limit: $scope.pagePerPage
+        limit: $scope.pagePerPage,
+        where: where
       };
       Word.$search(options).$then(function(objects) {
         blockUI.start();

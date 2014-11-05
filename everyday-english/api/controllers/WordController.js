@@ -42,6 +42,9 @@ module.exports = {
     } else {
       var options = getOptions(req);
       var where = options['where'];
+      if (where) {
+        where =  JSON.parse(where);
+      }
       Word.count().where(where).exec(
         function(err, count) {
           if (err) {
@@ -84,7 +87,7 @@ module.exports = {
         limit: req.param('limit') || 10,
         skip: req.param('skip') || 0,
         sort: req.param('sort') || undefined,
-        where: where || undefined
+        where: req.param('where') || undefined
       };
       return options;
     }
